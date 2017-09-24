@@ -3,6 +3,8 @@ package com.yourstyle.controller;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ import com.yourstyle.model.Supplier;
 
 @Controller
 public class SupplierController {
+	
+	private static Logger log = LoggerFactory.getLogger(SupplierController.class);
+	
 
 	@Autowired
 	SupplierDao supplierDao;
@@ -28,8 +33,10 @@ public class SupplierController {
             Model model, 
             RedirectAttributes redirectAttrs){
 		
+		log.info("showListOfSuppliers : Fetch all the suppliers");
 		List<Supplier> supplierList = supplierDao.getAllSuppliers();
 		
+		log.info("showListOfSuppliers : Adding supplierList to models");
 		model.addAttribute("supplierList", supplierList);
 		
 		return "/supplierPage";
@@ -38,10 +45,13 @@ public class SupplierController {
 	
 	@RequestMapping(value="/saveSupplier",method = RequestMethod.POST)
 	public String saveSupplier(@ModelAttribute("supplier") Supplier supplier,Model model,BindingResult result){
+		
+		log.info("saveSupplier : Saving Supplier details");
 		supplier.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
 		supplier.setCreatedBy("System");
 		
 		supplierDao.saveOrUpdate(supplier);
+		log.info("saveSupplier : Set Supplier in model");
 		model.addAttribute("supplier", supplier);
 		return "redirect:/supplierPage";
 	}
@@ -49,6 +59,7 @@ public class SupplierController {
 	@RequestMapping(value="/editsupplier/{id}", method = RequestMethod.GET)
 	public String editsupplier(@PathVariable("id") int id,Model model,RedirectAttributes attributes){
 		 
+		log.info("editsupplier : Edit supplier details -- fetch supplier by Id");
 		attributes.addFlashAttribute("supplier", supplierDao.getSupplierById(id));
 		return "redirect:/supplierPage";
 	}
@@ -56,6 +67,7 @@ public class SupplierController {
 	@RequestMapping(value="/removesupplier/{id}", method = RequestMethod.GET)
 	public String removesupplier(@PathVariable("id") int id, Model model,RedirectAttributes attributes){
 		
+		log.info("removesupplier : Delete supplier details -- remove supplier by Id");
 		supplierDao.deleteSupplierById(id);
 		return "redirect:/supplierPage";
 	}
