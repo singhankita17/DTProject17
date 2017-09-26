@@ -27,7 +27,7 @@ import com.yourstyle.dao.UserDao;
 import com.yourstyle.dao.UserDaoImpl;
 
 @Configuration
-@ComponentScan(basePackages = "com.yourstyle.model")
+@ComponentScan(basePackages = "com.yourstyle.*")
 @EnableTransactionManagement
 public class ApplicationContextConfig {
 

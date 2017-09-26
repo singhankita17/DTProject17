@@ -37,6 +37,7 @@
 					</c:forEach>
 				</ul>
 				</li>
+				<c:if test="${user!=null}">
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="/Yourstyle/categoryPage">Add Category</a></li>
@@ -44,6 +45,7 @@
 					<li><a href="/Yourstyle/supplierPage">Add Supplier</a></li>
 				</ul>
 				</li>
+				</c:if>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<div class="form-group">
@@ -53,7 +55,15 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right">		    
 				<li><a href="/Yourstyle/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LogIn</a></li>
+				<c:choose>
+				<c:when test="${user==null}">
+					<li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LogIn</a></li>
+				</c:when>
+				<c:when test="${user!=null}">	
+					<li><a href="<c:url value="/logout" />"> Logout</a></li>
+					</c:when>
+					</c:choose>
+				
 			</ul>
 		  </div>
 		</div>

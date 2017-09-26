@@ -21,7 +21,7 @@
 	<div class="container">
 				<p><font color="red">${errorMessage}</font></p>
 				<h3>LogIn Form </h3>
-				<form action="/Yourstyle/login" name="loginform" method="post">
+				<form action="/login" name="loginform" method="post">
 				<br/>
 				<br/>
 			

@@ -14,7 +14,7 @@
 </head>
 <jsp:include page="header.jsp" /> 
 <body>
-Welcome user <strong> ${firstname}</strong> !!!
+Welcome user <strong> ${username}</strong> !!!
 </body>
 <jsp:include page="footer.jsp" /> 
 </html>
