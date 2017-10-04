@@ -15,10 +15,10 @@
 </head>
 <jsp:include page="header.jsp" /> 
 <body>
-			<!-- <div class="col-sm-1">
+			<div class="col-sm-1">
 			 </div>
 			 <div class="col-sm-10">
-			 	
+			 <!-- 	
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			    Indicators
 			    <ol class="carousel-indicators">
@@ -121,8 +121,8 @@
 			       <img src="resources/images/nyx_logo.png" class="img-responsive" style="width:100%" alt="Image">
 			      </div>
 			    </div>
-			  </div>
-			</div><br> -->
+			  </div> -->
+			</div><br>
 
 	<jsp:include page="footer.jsp" /> 
 </body>

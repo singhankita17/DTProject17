@@ -18,10 +18,10 @@
 <body>
 	<jsp:include page="header.jsp" /> 
 
-	<div class="container">
-				<p><font color="red">${errorMessage}</font></p>
+	<div class="container" style="height: 450px;">
+				<p><font color="red">${error}</font></p>
 				<h3>LogIn Form </h3>
-				<form action="/login" name="loginform" method="post">
+				<form action="<c:url value="/j_spring_security_check"/>"  method="post">
 				<br/>
 				<br/>
 			

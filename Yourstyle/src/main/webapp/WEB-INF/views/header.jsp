@@ -3,6 +3,7 @@
  <%@ page isELIgnored="false"%>
  <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
 
@@ -37,7 +38,7 @@
 					</c:forEach>
 				</ul>
 				</li>
-				<c:if test="${user!=null}">
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="/Yourstyle/categoryPage">Add Category</a></li>
@@ -45,7 +46,7 @@
 					<li><a href="/Yourstyle/supplierPage">Add Supplier</a></li>
 				</ul>
 				</li>
-				</c:if>
+				</sec:authorize>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<div class="form-group">
@@ -54,16 +55,13 @@
 				</div>
 			</form>
 			<ul class="nav navbar-nav navbar-right">		    
-				<li><a href="/Yourstyle/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<c:choose>
-				<c:when test="${user==null}">
-					<li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LogIn</a></li>
-				</c:when>
-				<c:when test="${user!=null}">	
-					<li><a href="<c:url value="/logout" />"> Logout</a></li>
-					</c:when>
-					</c:choose>
-				
+				   <li><a href="/Yourstyle/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>				
+				<sec:authorize access="isAnonymous()">
+				   <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LogIn</a></li>
+				 </sec:authorize>  
+				<sec:authorize access="isAuthenticated()">
+					<li><a href="<c:url value="/logout" />">Logout</a></li>
+				</sec:authorize>
 			</ul>
 		  </div>
 		</div>
