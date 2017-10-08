@@ -18,7 +18,7 @@
 <body>
 
 <div class="container">
-	      <form:form commandName="product" method="post" action="/Yourstyle/saveProduct">
+	      <form:form commandName="product" method="post" action="/Yourstyle/saveProduct" enctype="multipart/form-data">
 				<p><font color="red">${errorMessage}</font></p>				
 				<h4>
 				<strong>
@@ -105,6 +105,12 @@
 						 <form:option class="form-control"  value="${supplier.id}">${supplier.supplierName}</form:option>
 						 </c:forEach>
 						</form:select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="Product Image" class="col-xs-4 control-label">Product Image</label>
+					<div class="col-xs-4">
+						<input name="file"  type ="file" class="form-control" />
 					</div>
 				</div>
 				<br/>

@@ -80,4 +80,13 @@ public class ProductDaoImpl implements ProductDao {
 		return product;		
 	}
 
+	@Override
+	public List<Product> getAllProductForCategory(int catId) {
+		log.info("ProductDaoImpl : get all Products under given Category Id -- "+catId);
+		Session session = sessionFactory.openSession();
+		List<Product> products = session.createQuery("from Product where categoryId = :catId",Product.class).setParameter("catId", catId).list();
+		session.close();
+		return products;
+	}
+
 }

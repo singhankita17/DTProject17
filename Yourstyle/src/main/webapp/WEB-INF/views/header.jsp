@@ -34,7 +34,7 @@
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 				    <c:forEach items="${categoryList}" var="category">
-						<li><a href="#">${category.categoryName}</a></li>
+						<li><a href="/Yourstyle/fetchByCategory/${category.id}">${category.categoryName}</a></li>
 					</c:forEach>
 				</ul>
 				</li>

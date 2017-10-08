@@ -48,6 +48,8 @@ public class Product {
 		
 		private int supplierId;
 		
+		private String productImage;
+		
 		public int getId() {
 			return id;
 		}
@@ -166,6 +168,14 @@ public class Product {
 
 		public void setSalePrice(double salePrice) {
 			this.salePrice = salePrice;
+		}
+
+		public String getProductImage() {
+			return productImage;
+		}
+
+		public void setProductImage(String productImage) {
+			this.productImage = productImage;
 		}
 		
 

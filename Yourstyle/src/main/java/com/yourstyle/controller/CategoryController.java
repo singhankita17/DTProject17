@@ -69,4 +69,6 @@ public class CategoryController {
 		categoryDao.deleteCategoryById(id);
 		return "redirect:/categoryPage";
 	}
+	
+	
 }
