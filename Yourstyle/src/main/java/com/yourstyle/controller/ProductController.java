@@ -51,36 +51,45 @@ public class ProductController {
 	SupplierDao supplierDao;
 	
 	
-	@RequestMapping(value="/productAddPage",method = RequestMethod.GET)
-	public String showProductAddPage(@ModelAttribute("product") Product product,BindingResult result,Model model,RedirectAttributes redirectAttrs){
+	@RequestMapping(value="productPage",method = RequestMethod.GET)
+	public String showProductPage(@ModelAttribute("product") Product product,BindingResult result,Model model,RedirectAttributes redirectAttrs){
 		
-		log.info("showProductAddPage : Fetch all the categories, suppliers and products -- set in model");
+		log.info("showProductPage : Fetch all the categories, suppliers and products -- set in model");
 		
 		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		model.addAttribute("supplierList", supplierDao.getAllSuppliers());
 		model.addAttribute("productList", productDao.getAllProducts());
 		
-		return "/productAddPage";
+		return "productPage";
 	}
 	
-	@RequestMapping(value="/saveProduct", method=RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("product") Product product,BindingResult result,ModelMap model,@RequestParam("file") MultipartFile file){
+	@RequestMapping(value="saveProduct", method=RequestMethod.POST)
+	public String saveProduct(@ModelAttribute("product") Product product,BindingResult result,ModelMap model,@RequestParam("productImage") MultipartFile file){
 		
 		log.info("saveProduct : Save product details");
 		product.setCreatedBy("System");
 		product.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
-		log.info("saveProduct : Calling upload File method");
-		String imageName = uploadFile(file,product.getId());
-		log.info("saveProduct : Add Image file name to product :"+imageName);
-		product.setProductImage(imageName);
+		log.info("saveProduct : Save the product details to DB");
 		productDao.saveOrUpdate(product);
-		
+		log.info("saveProduct : Calling upload File method");
+		String imageName="";
+		if(!file.isEmpty()){
+			try {
+				imageName = uploadFile(file,product.getId());
+				log.info("saveProduct : Add Image file name to product :"+imageName);
+			} catch (IOException e) {
+				log.info("saveProduct : Add Image file name to product :"+imageName+" failed to upload => "+e.getMessage());
+				model.addAttribute("errorMessage","Failed to upload file => "+e.getMessage());
+			}
+		}else{
+			model.addAttribute("errorMessage", "Problem in File Uploading");
+		}
 		log.info("saveProduct : Add product to model");
 		model.addAttribute("product", product);
-		return "redirect:/productAddPage";
+		return "redirect:/productPage";
 	}
 	
-	private String uploadFile(MultipartFile file, int productId) {
+	private String uploadFile(MultipartFile fileDetail, int productId) throws IOException {
 		
 		log.info("uploadFile : Upload file to the server");
 		String UPLOAD_DIRECTORY = "wtpwebapps/Yourstyle/resources/images";
@@ -88,28 +97,20 @@ public class ProductController {
 		String rootPath = System.getProperty("catalina.base");
 		log.info("uploadFile : rootPath = "+rootPath);
 		File dir = new File(rootPath+File.separator+UPLOAD_DIRECTORY);
-		if(!dir.exists()){
-			dir.mkdirs();
-		}
-		String filename = file.getOriginalFilename();
-		log.info("uploadFile : File complete path = "+dir.getAbsolutePath()+File.separator+filename);
 		
-		try {	
-			log.info("uploadFile : Convert file to a byte array ");
-		byte[] bytes=file.getBytes();
+		String filename = String.valueOf(productId)+".jpg";
+		File fileToUpload = new File(dir.getAbsolutePath()+File.separator+filename);
+		log.info("uploadFile : File complete path = "+dir.getAbsolutePath()+File.separator+filename);
+			
+		log.info("uploadFile : Convert file to a byte array ");
+		byte[] bytes=fileDetail.getBytes();
 		BufferedOutputStream bufferedOutputStream;
 		log.info("uploadFile : Upload file to the given path and write bytes to the file");
-		bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(new File(dir.getAbsolutePath()+File.separator+filename)));
+		bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(fileToUpload));
 		bufferedOutputStream.write(bytes);
 		bufferedOutputStream.flush();
 		bufferedOutputStream.close();
-		} catch (FileNotFoundException e) {
-			
-			return "Failed to upload file : "+filename+" => "+e.getMessage();
-		} catch (IOException e) {
-			
-			return "Failed to upload file : "+filename+" => "+e.getMessage();
-		}
+		
 
 		return filename;
 	}
@@ -119,7 +120,7 @@ public class ProductController {
 		 
 		log.info("editproduct : Edit product details -- fetch product by Id");
 		attributes.addFlashAttribute("product", productDao.getProductById(id));
-		return "redirect:/productAddPage";
+		return "redirect:/productPage";
 	}
 	
 	@RequestMapping(value="/removeproduct/{id}", method = RequestMethod.GET)
@@ -127,11 +128,30 @@ public class ProductController {
 		
 		log.info("removeProduct : Delete product details -- remove product by Id");
 		productDao.deleteProductById(id);
-		return "redirect:/productAddPage";
+		log.info("removeProduct : Remove image file from server");
+		removefile(id);
+		log.info("removeProduct : Redirect to product page");
+		return "redirect:/productPage";
 	}
 	
+	private void removefile(int productId) {
+		
+		log.info("removefile : Remove file from the server");
+		String UPLOAD_DIRECTORY = "wtpwebapps/Yourstyle/resources/images";
+		log.info("removefile : UPLOAD_DIRECTORY = "+UPLOAD_DIRECTORY);
+		String rootPath = System.getProperty("catalina.base");
+		log.info("removefile : rootPath = "+rootPath);
+		File dir = new File(rootPath+File.separator+UPLOAD_DIRECTORY);
+		
+		String filename = String.valueOf(productId)+".jpg";
+		File fileToRemove = new File(dir.getAbsolutePath()+File.separator+filename);
+		fileToRemove.delete();
+		log.info("removeFile : Image File removed from  => "+dir.getAbsolutePath()+File.separator+filename);			
+		
+	}
+
 	//Added to fetch Products based on Categories
-	@RequestMapping(value="/fetchByCategory/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="fetchByCategory/{id}", method = RequestMethod.GET)
 	public String fetchProductByCategory(@PathVariable("id") int id, Model model,RedirectAttributes attributes){
 		
 		log.info("fetchProductByCategory : Fetch product details -- based on given Category Id");

@@ -18,13 +18,13 @@
 <body>
 
 <div class="container">
-	      <form:form commandName="product" method="post" action="/Yourstyle/saveProduct" enctype="multipart/form-data">
+	      <form:form commandName="product" method="post" action="saveProduct" enctype="multipart/form-data">
 				<p><font color="red">${errorMessage}</font></p>				
 				<h4>
 				<strong>
 			     <c:choose>
 			     	<c:when test="${product.id==0}">  Add Product </c:when>
-			     	<c:when test="${!empty product.id}">Update Product <br> Product Id: <c:out value="${product.id}"/></c:when>
+			     	<c:when test="${!empty product.id}">Update Product <br> <br>Product Id: <c:out value="${product.id}"/></c:when>
 			     </c:choose>
 			     </strong>
 			     </h4>
@@ -40,45 +40,45 @@
 				<div class="form-group row">
 					<label for="productName" class="col-xs-4 control-label">Product Name</label>
 					<div class="col-xs-4">
-						<form:input name="productName" path="productName" placeholder="Product Name" class="form-control" />
+						<form:input name="productName" path="productName" placeholder="Product Name" class="form-control" required="required"/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="productDesc" class="col-xs-4 control-label">Product Description</label>
 					<div class="col-xs-4">
-						<form:input name="productDesc"  path="productDesc" placeholder="Product Description" class="form-control" />
+						<form:textarea name="productDesc"  path="productDesc" placeholder="Product Description" class="form-control" />
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="brandName" class="col-xs-4 control-label">Brand Name</label>
 					<div class="col-xs-4">
-						<form:input name="brandName"  path="brandName" placeholder="Brand Name" class="form-control" />
+						<form:input name="brandName"  path="brandName" placeholder="Brand Name" class="form-control" required="required"/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="price" class="col-xs-4 control-label">Price</label>
 					<div class="col-xs-4">
-						<form:input name="price"  path="price" placeholder="Price" class="form-control" />
+						<form:input name="price"  path="price" placeholder="Price" class="form-control" required="required"/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="inStock" class="col-xs-4 control-label">In Stock</label>
 					<div class="col-xs-4">
-						<form:radiobutton id="inStock"  path="inStock"  label="Yes" checked="checked"></form:radiobutton>
-						<form:radiobutton id="inStock"  path="inStock"  label="No"></form:radiobutton>
+						<form:radiobutton id="inStock"  path="inStock" value="true" label="Yes" checked="checked"></form:radiobutton>
+						<form:radiobutton id="inStock"  path="inStock" value="false" label="No"></form:radiobutton>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="quantityAvailable" class="col-xs-4 control-label">Quantity Available</label>
 					<div class="col-xs-4">
-						<form:input name="quantityAvailable"  path="quantityAvailable" placeholder="Quantity Available" class="form-control" />
+						<form:input name="quantityAvailable"  path="quantityAvailable" placeholder="Quantity Available" class="form-control" required="required"/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="onSale" class="col-xs-4 control-label">On Sale</label>
 					<div class="col-xs-4">
-						<form:radiobutton id="onSale"  path="onSale" label="Yes"></form:radiobutton>
-						<form:radiobutton id="onSale"  path="onSale" label="No" checked="checked"></form:radiobutton>
+						<form:radiobutton id="onSale"  path="onSale" value="true" label="Yes"></form:radiobutton>
+						<form:radiobutton id="onSale"  path="onSale" value ="false" label="No" checked="checked"></form:radiobutton>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -91,6 +91,7 @@
 					<label for="Product Category" class="col-xs-4 control-label">Product Category</label>
 					<div class="col-xs-4">
 						<form:select path="categoryId" class="form-control" required="true">
+						 <form:option class="form-control"  value="0">---Select---</form:option>	
 						 <c:forEach items="${categoryList}" var="category">				 
 						 <form:option class="form-control"  value="${category.id}">${category.categoryName}</form:option>
 						 </c:forEach>
@@ -101,7 +102,8 @@
 					<label for="Product Supplier" class="col-xs-4 control-label">Product Supplier</label>
 					<div class="col-xs-4">
 						<form:select path="supplierId" class="form-control" required="true">
-						 <c:forEach items="${supplierList}" var="supplier">			 
+						 <form:option class="form-control"  value="0">---Select---</form:option>	
+						 <c:forEach items="${supplierList}" var="supplier">							 	 
 						 <form:option class="form-control"  value="${supplier.id}">${supplier.supplierName}</form:option>
 						 </c:forEach>
 						</form:select>
@@ -110,7 +112,7 @@
 				<div class="form-group row">
 					<label for="Product Image" class="col-xs-4 control-label">Product Image</label>
 					<div class="col-xs-4">
-						<input name="file"  type ="file" class="form-control" />
+						<form:input  type ="file" path="productImage" class="form-control" />
 					</div>
 				</div>
 				<br/>

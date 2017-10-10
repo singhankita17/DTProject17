@@ -28,7 +28,7 @@ public class SupplierController {
 	SupplierDao supplierDao;
 	
 		
-	@RequestMapping(value="/supplierPage",method = RequestMethod.GET)
+	@RequestMapping(value="supplierPage",method = RequestMethod.GET)
 	public String showListOfSuppliers(@ModelAttribute("supplier") Supplier supplier,  BindingResult result,  
             Model model, 
             RedirectAttributes redirectAttrs){
@@ -39,11 +39,11 @@ public class SupplierController {
 		log.info("showListOfSuppliers : Adding supplierList to models");
 		model.addAttribute("supplierList", supplierList);
 		
-		return "/supplierPage";
+		return "supplierPage";
 		
 	}
 	
-	@RequestMapping(value="/saveSupplier",method = RequestMethod.POST)
+	@RequestMapping(value="saveSupplier",method = RequestMethod.POST)
 	public String saveSupplier(@ModelAttribute("supplier") Supplier supplier,Model model,BindingResult result){
 		
 		log.info("saveSupplier : Saving Supplier details");
@@ -56,7 +56,7 @@ public class SupplierController {
 		return "redirect:/supplierPage";
 	}
 	
-	@RequestMapping(value="/editsupplier/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="editsupplier/{id}", method = RequestMethod.GET)
 	public String editsupplier(@PathVariable("id") int id,Model model,RedirectAttributes attributes){
 		 
 		log.info("editsupplier : Edit supplier details -- fetch supplier by Id");
@@ -64,7 +64,7 @@ public class SupplierController {
 		return "redirect:/supplierPage";
 	}
 	
-	@RequestMapping(value="/removesupplier/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="removesupplier/{id}", method = RequestMethod.GET)
 	public String removesupplier(@PathVariable("id") int id, Model model,RedirectAttributes attributes){
 		
 		log.info("removesupplier : Delete supplier details -- remove supplier by Id");

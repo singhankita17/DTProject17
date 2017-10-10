@@ -25,7 +25,7 @@
 				<intercept-url pattern="/saveSupplier*" access="hasRole('ROLE_ADMIN')"/>
 				<intercept-url pattern="/editsupplier*" access="hasRole('ROLE_ADMIN')"/>
 				<intercept-url pattern="/removesupplier*" access="hasRole('ROLE_ADMIN')"/>
-				<intercept-url pattern="/productAddPage*" access="hasRole('ROLE_ADMIN')"/>
+				<intercept-url pattern="/productPage*" access="hasRole('ROLE_ADMIN')"/>
 				<intercept-url pattern="/saveProduct*" access="hasRole('ROLE_ADMIN')"/>
 				<intercept-url pattern="/editproduct*" access="hasRole('ROLE_ADMIN')"/>
 				<intercept-url pattern="/removeproduct*" access="hasRole('ROLE_ADMIN')"/>

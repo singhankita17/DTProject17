@@ -19,7 +19,7 @@
 	<jsp:include page="header.jsp" /> 
 
 	<div class="container">
-	      <form:form commandName="supplier" method="post" action="/Yourstyle/saveSupplier">
+	      <form:form commandName="supplier" method="post" action="saveSupplier">
 				<p><font color="red">${errorMessage}</font></p>				
 				<h5>
 				<strong>

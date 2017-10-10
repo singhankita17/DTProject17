@@ -51,7 +51,7 @@ Welcome user <sec:authentication property="name"/> !!!
 			   			<td><c:out value="${product.onSale}"></c:out></td>
 			   			<td><c:out value="${product.salePrice}"></c:out></td>
 			   			<!-- Added in Multipart changes for image display -->
-			   			<td><img src="resources/images/${product.productImage}" class="img-responsive" style="width:100%"/></td>
+			   			<td><img src="resources/images/${product.id}.jsp" class="img-responsive" style="width:100%"/></td>
 			   		</tr>
 			   </c:forEach>
 			</tbody>

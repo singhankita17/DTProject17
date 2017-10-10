@@ -60,7 +60,7 @@ public class HomeController {
 		}
 		
 		//Added error and logout parameters
-		@RequestMapping(value="/login", method = RequestMethod.GET)
+		@RequestMapping(value="login", method = RequestMethod.GET)
 		public ModelAndView loginPage(HttpSession session,@RequestParam(value="error",required = false) String error,@RequestParam(value="logout",required = false) String logout){
 			
 			ModelAndView model = new ModelAndView();
@@ -76,7 +76,7 @@ public class HomeController {
 			model.setViewName("login");
 			return model;
 		}
-		//Commeting login code for using Spring Security
+		//Commenting login code for using Spring Security
 		/*
 		@RequestMapping(value="/login",method = RequestMethod.POST)
 		public String showHomePage(@ModelAttribute("email") String email,@ModelAttribute("password") String password,ModelMap model,HttpSession session){
@@ -128,7 +128,7 @@ public class HomeController {
 						 
 					     }
 					     log.info("login_session_attributes :  Redirect to home Page");
-					     return "/home";
+					     return "home";
 					}
 			}
 			
@@ -157,26 +157,26 @@ public class HomeController {
 		}
 		
 		//Access Denied Handler
-		@RequestMapping(value="/accessDenied", method = RequestMethod.GET)
+		@RequestMapping(value="accessDenied", method = RequestMethod.GET)
 		public String showAccessDeniedPage(ModelMap model){
 			log.info("showAccessDeniedPage :  Redirect to Access Denied Page");
 			return "accessDenied";
 		}
 		
-		@RequestMapping(value="/home", method = RequestMethod.GET)
+		@RequestMapping(value="home", method = RequestMethod.GET)
 		public String showHomePage(){
 			log.info("showHomePage : Redirect to homepage");
 			return "home";
 		}
 		
-		@RequestMapping(value="/signup", method = RequestMethod.GET)
+		@RequestMapping(value="signup", method = RequestMethod.GET)
 		public String showSignUpPage(Model model){
 			log.info("showSignUpPage : Set user detail in model -- Redirect to signup");
 			model.addAttribute("user", new User());
 			return "signup";
 		}
 		
-		@RequestMapping(value="/signup", method = RequestMethod.POST)
+		@RequestMapping(value="savesignup", method = RequestMethod.POST)
 		public String saveSignUpPage(@ModelAttribute("user") User user, BindingResult result,ModelMap model){
 			
 			log.info("saveSignUpPage : Fetching user detail based on email");

@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table
@@ -48,7 +50,8 @@ public class Product {
 		
 		private int supplierId;
 		
-		private String productImage;
+		@Transient
+		private MultipartFile productImage;
 		
 		public int getId() {
 			return id;
@@ -170,13 +173,15 @@ public class Product {
 			this.salePrice = salePrice;
 		}
 
-		public String getProductImage() {
+		public MultipartFile getProductImage() {
 			return productImage;
 		}
 
-		public void setProductImage(String productImage) {
+		public void setProductImage(MultipartFile productImage) {
 			this.productImage = productImage;
 		}
+
+		
 		
 
 }

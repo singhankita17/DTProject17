@@ -17,7 +17,7 @@
 <body>
 	<jsp:include page="header.jsp" /> 
 
-	<form:form commandName="user" action="/Yourstyle/signup" method="post">	
+	<form:form commandName="user" action="savesignup" method="post">	
 		  <div class="container">
 		  <p><font color="red">${errorMessage}</font></p>
 		  <div class="form-group row">

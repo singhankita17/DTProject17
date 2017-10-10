@@ -27,7 +27,7 @@ public class CategoryController {
 	@Autowired
 	CategoryDao categoryDao;
 	
-	@RequestMapping(value="/categoryPage", method = RequestMethod.GET)
+	@RequestMapping(value="categoryPage", method = RequestMethod.GET)
 	public String showlistOfCategory(@ModelAttribute("category") Category category,  BindingResult result,  
             Model model, 
             RedirectAttributes redirectAttrs){
@@ -38,10 +38,10 @@ public class CategoryController {
 		 log.info("showlistOfCategory : Adding categoryList to model");
 	     model.addAttribute("categoryList", categoryList);
 	     
-		return "/categoryPage";
+		return "categoryPage";
 	}
 	
-	@RequestMapping(value="/saveCategory", method = RequestMethod.POST)
+	@RequestMapping(value="saveCategory", method = RequestMethod.POST)
 	public String saveCategory(@ModelAttribute("category") Category category, BindingResult result,ModelMap model){
 		
 		log.info("saveCategory : Saving category details");

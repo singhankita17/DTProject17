@@ -19,7 +19,7 @@
 	<jsp:include page="header.jsp" /> 
 
 	<div class="container">
-	      <form:form commandName="category" method="post" action="/Yourstyle/saveCategory">
+	      <form:form commandName="category" method="post" action="saveCategory">
 				<p><font color="red">${errorMessage}</font></p>				
 				<h5>
 				<strong>
