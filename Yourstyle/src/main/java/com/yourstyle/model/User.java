@@ -5,7 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -17,25 +20,29 @@ public class User {
 		@GeneratedValue
 		private int Id;
 		
+		@NotNull
 		@Column(name = "first_name")
 		private String firstName;
 		
+		@NotNull
 		@Column(name = "last_name")
 		private String lastName;
 		
-		@Column
+		@Email
+		@NotNull
 		private String email;
 		
-		@Column
+		@NotNull
+		@Size(min=6,max=15)
 		private String password;
 		
-		@Column
-		private Long phone;
 		
-		@Column
+		private long phone;
+				
+		@NotNull
 		private String role;
 		
-		@Column
+		
 		private Boolean enabled;
 		
 		@Column(name = "Created_Timestamp")
@@ -177,11 +184,11 @@ public class User {
 			this.userAddress = userAddress;
 		}
 
-		public Long getPhone() {
+		public long getPhone() {
 			return phone;
 		}
 
-		public void setPhone(Long phone) {
+		public void setPhone(long phone) {
 			this.phone = phone;
 		}
 

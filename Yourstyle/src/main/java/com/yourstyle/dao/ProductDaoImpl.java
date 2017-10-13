@@ -36,15 +36,7 @@ public class ProductDaoImpl implements ProductDao {
 		return true;
 	}
 
-	@Transactional
-	public Product getUserById(int productId) {
-		
-		log.info("ProductDaoImpl : get Product by Id --"+productId);
-		Product product = (Product) sessionFactory.getCurrentSession().createQuery("select p from Product p where id = :productId")
-				.setParameter("productId", productId).uniqueResult();
-		log.info("ProductDaoImpl : Product retrieval successful --product "+product.toString());
-		return product;
-	}
+	
 
 	@Transactional
 	public boolean deleteProductById(int productId) {

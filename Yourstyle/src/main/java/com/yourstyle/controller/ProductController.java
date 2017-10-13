@@ -93,10 +93,12 @@ public class ProductController {
 		
 		log.info("uploadFile : Upload file to the server");
 		String UPLOAD_DIRECTORY = "wtpwebapps/Yourstyle/resources/images";
+		
 		log.info("uploadFile : UPLOAD_DIRECTORY = "+UPLOAD_DIRECTORY);
 		String rootPath = System.getProperty("catalina.base");
 		log.info("uploadFile : rootPath = "+rootPath);
 		File dir = new File(rootPath+File.separator+UPLOAD_DIRECTORY);
+		
 		
 		String filename = String.valueOf(productId)+".jpg";
 		File fileToUpload = new File(dir.getAbsolutePath()+File.separator+filename);
@@ -160,4 +162,21 @@ public class ProductController {
 		attributes.addFlashAttribute("products", products);
 		return "redirect:/home";
 	}
+	
+	@RequestMapping(value="productDetail/{id}",method = RequestMethod.GET)
+	public String getProductById(@PathVariable("id") int id,Model model,RedirectAttributes attributes){
+		log.info("getProductById : Fetch product details -- based on given Product Id");
+		Product  product = productDao.getProductById(id);
+		log.info("getProductById : Product fetched for display  based on product Id"+product.getId());
+		model.addAttribute("product", product);
+		//attributes.addFlashAttribute("product", product);
+		return "productDetailPage";
+	}
+	
+	@RequestMapping(value="productDetailPage", method = RequestMethod.GET)
+	public String showProductDetailPage(Model m){
+		log.info("showProductDetailPage : Redirect to ProductDetailPage");
+		return "productDetailPage";
+	}
+	
 }

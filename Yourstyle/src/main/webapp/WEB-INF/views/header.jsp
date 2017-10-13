@@ -26,24 +26,26 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img alt="YourStyle"  style="max-width:70px; margin-top: -7px;" src="resources/images/logo.png"></a>
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img alt="YourStyle"  style="max-width:70px; margin-top: -7px;" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
 			</div>
 			<div class="collapse navbar-collapse" id="ysNavbar">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
+				<sec:authorize access="hasRole('ROLE_USER')|| isAnonymous()">
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 				    <c:forEach items="${categoryList}" var="category">
-						<li><a href="fetchByCategory/${category.id}">${category.categoryName}</a></li>
+						<li><a href="${pageContext.request.contextPath}/fetchByCategory/${category.id}">${category.categoryName}</a></li>
 					</c:forEach>
 				</ul>
 				</li>
+				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="categoryPage">Add Category</a></li>
-					<li><a href="productPage">Add Product</a></li>
-					<li><a href="supplierPage">Add Supplier</a></li>
+					<li><a href="categoryPage"> Category </a></li>
+					<li><a href="productPage"> Product</a></li>
+					<li><a href="supplierPage"> Supplier</a></li>
 				</ul>
 				</li>
 				</sec:authorize>
@@ -54,10 +56,11 @@
 					<button type="submit" class="btn btn-default">Go <span class="glyphicon glyphicon-search"></span></button>
 				</div>
 			</form>
-			<ul class="nav navbar-nav navbar-right">		    
-				   <li><a href="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>				
-				<sec:authorize access="isAnonymous()">
-				   <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LogIn</a></li>
+			<ul class="nav navbar-nav navbar-right">	
+			 <sec:authorize access="isAnonymous()">	    
+				   <li><a href="${pageContext.request.contextPath}/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>				
+				
+				   <li><a href="${pageContext.request.contextPath}/login"><span class="glyphicon glyphicon-log-in"></span> LogIn</a></li>
 				 </sec:authorize>  
 				<sec:authorize access="isAuthenticated()">
 					<li><a href="<c:url value="/logout" />">Logout</a></li>

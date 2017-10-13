@@ -8,9 +8,7 @@ import com.yourstyle.model.Product;
 public interface ProductDao {
 
 	public boolean saveOrUpdate(Product product);
-	
-	public Product getUserById(int productId);
-	
+		
 	public Product getProductById(int productId);
 	
 	public boolean deleteProductById(int productId);

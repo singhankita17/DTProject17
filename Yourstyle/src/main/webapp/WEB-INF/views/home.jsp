@@ -16,7 +16,7 @@
 </head>
 <jsp:include page="header.jsp" /> 
 <body>
-<div class="container" style="height: 450px;">
+<div class="container" style="height: 1000px;">
 Welcome user <sec:authentication property="name"/> !!!
 
 
@@ -51,7 +51,10 @@ Welcome user <sec:authentication property="name"/> !!!
 			   			<td><c:out value="${product.onSale}"></c:out></td>
 			   			<td><c:out value="${product.salePrice}"></c:out></td>
 			   			<!-- Added in Multipart changes for image display -->
-			   			<td><img src="resources/images/${product.id}.jsp" class="img-responsive" style="width:100%"/></td>
+			   			<td>
+			   			<a href="productDetail/${product.id}">
+			   			<img src="<c:url value="resources/images/${product.id}.jpg" />" class = "img-thumbnail" width="204px" height="106px"/>
+			   			</a></td>
 			   		</tr>
 			   </c:forEach>
 			</tbody>

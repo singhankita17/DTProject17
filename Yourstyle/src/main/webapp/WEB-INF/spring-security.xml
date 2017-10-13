@@ -29,11 +29,11 @@
 				<intercept-url pattern="/saveProduct*" access="hasRole('ROLE_ADMIN')"/>
 				<intercept-url pattern="/editproduct*" access="hasRole('ROLE_ADMIN')"/>
 				<intercept-url pattern="/removeproduct*" access="hasRole('ROLE_ADMIN')"/>
-				<intercept-url pattern="/accessDenied*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+				<intercept-url pattern="/accessDenied*" access="isAuthenticated()"/>
 				<form-login login-page="/login" authentication-failure-url="/loginfailed" default-target-url="/home" 
-				login-processing-url="/j_spring_security_check"
+				login-processing-url="/perform_login"
 				username-parameter="email" 
-     			password-parameter="password" authentication-success-forward-url="/login_session_attributes"/>
+     			password-parameter="password" authentication-success-forward-url="/login_attributes"/>
 				<logout logout-success-url="/login?logout"/>
 				<access-denied-handler error-page="/accessDenied"/>
 				<csrf disabled="true"/>

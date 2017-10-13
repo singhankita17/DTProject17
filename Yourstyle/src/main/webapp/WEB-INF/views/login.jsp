@@ -21,22 +21,22 @@
 	<div class="container" style="height: 450px;">
 				<p><font color="red">${error}</font></p>
 				<h3>LogIn Form </h3>
-				<form action="<c:url value="/j_spring_security_check"/>"  method="post">
+				<form action="perform_login"  method="post">
 				<br/>
 				<br/>
 			
 				<div class="form-group row">
 				 <div class="col-xs-6">
 					<label for="email">Email:  </label>
-					<input type="email" class="form-control" id="email" placeholder="Enter Email" name = "email"/>
+					<input type="email" class="form-control" id="email" placeholder="Enter Email" path = "email"/>
 				</div>
 				</div>
 				<br/>
 				<div class="form-group row">
 					 <div class="col-xs-6">
 					<label for="password">Password: </label>
-					<input type="password" class="form-control" id="password" placeholder="Enter Password"  name="password"/>
-				</div>
+					<input type="password" class="form-control" id="password" placeholder="Enter Password"  path="password" maxlength="15" />
+					</div>
 				</div>
 				<br/>
 				<button type="submit" class="btn btn-default">Submit</button><br/>	<br/>		

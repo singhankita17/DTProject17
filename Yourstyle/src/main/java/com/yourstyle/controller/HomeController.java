@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,11 +62,11 @@ public class HomeController {
 		
 		//Added error and logout parameters
 		@RequestMapping(value="login", method = RequestMethod.GET)
-		public ModelAndView loginPage(HttpSession session,@RequestParam(value="error",required = false) String error,@RequestParam(value="logout",required = false) String logout){
+		public ModelAndView loginPage(Model m,HttpSession session,@RequestParam(value="error",required = false) String error,@RequestParam(value="logout",required = false) String logout){
 			
 			ModelAndView model = new ModelAndView();
 			log.info("loginPage : Adding categoryList to session attribute");
-			session.setAttribute("categoryList", categoryDao.getAllCategories());
+			//session.setAttribute("categoryList", categoryDao.getAllCategories());
 			if(error!=null){
 				model.addObject("error","Invalid Credentials (Username or Password)");
 			}
@@ -73,6 +74,7 @@ public class HomeController {
 				model.addObject("message", "Logged Out from Yourstyle");
 			}
 			log.info("loginPage : Redirecting to login page");
+			m.addAttribute("categoryList", categoryDao.getAllCategories());
 			model.setViewName("login");
 			return model;
 		}
@@ -101,17 +103,17 @@ public class HomeController {
 			return "home";
 		}*/
 		
-		@RequestMapping(value = "/login_session_attributes")
+		@RequestMapping(value = "/login_attributes")
 		public String login_session_attributes(HttpSession session,Model model) {
-			log.info("login_session_attributes :  Fetching details from SecurityContextHolder --> email");
+			log.info("login_attributes :  Fetching details from SecurityContextHolder --> email");
 			String email = SecurityContextHolder.getContext().getAuthentication().getName();
 			System.out.println("Email = "+email);
-			log.info("login_session_attributes :  User details from Database using given email");
+			log.info("login_attributes :  User details from Database using given email");
 			User user = userDao.getUserByEmail(email);
 			System.out.println("User = "+user.toString());
-			log.info("login_session_attributes :  Checking if user details found or not Else redirect to Index page");
+			log.info("login_attributes :  Checking if user details found or not Else redirect to Index page");
 			if(user!=null){		
-				log.info("login_session_attributes :  Fetching Authorities from Security Context");
+				log.info("login_attributes :  Fetching Authorities from Security Context");
 					Collection<? extends GrantedAuthority> authorities = (Collection<? extends GrantedAuthority>) SecurityContextHolder.getContext()
 					.getAuthentication().getAuthorities();
 					
@@ -119,15 +121,16 @@ public class HomeController {
 					model.addAttribute("user", user);
 					for (GrantedAuthority authority : authorities) 
 					{
-						log.info("login_session_attributes :  check for Admin Role");
+						log.info("login_attributes :  check for Admin Role");
 					     if (authority.getAuthority().equals(role)) 
 					     {
 					    	 model.addAttribute("supplierList",supplierDao.getAllSuppliers());
-					    	 model.addAttribute("categoryList",categoryDao.getAllCategories());
+					    	
 					    	 model.addAttribute("productList", productDao.getAllProducts());
 						 
 					     }
-					     log.info("login_session_attributes :  Redirect to home Page");
+					     model.addAttribute("categoryList",categoryDao.getAllCategories());
+					     log.info("login_attributes :  Redirect to home Page");
 					     return "home";
 					}
 			}
@@ -173,11 +176,16 @@ public class HomeController {
 		public String showSignUpPage(Model model){
 			log.info("showSignUpPage : Set user detail in model -- Redirect to signup");
 			model.addAttribute("user", new User());
+			model.addAttribute("categoryList", categoryDao.getAllCategories());
 			return "signup";
 		}
 		
 		@RequestMapping(value="savesignup", method = RequestMethod.POST)
-		public String saveSignUpPage(@ModelAttribute("user") User user, BindingResult result,ModelMap model){
+		public String saveSignUpPage(@Valid @ModelAttribute("user") User user, BindingResult result,ModelMap model){
+			
+			if(result.hasErrors()){
+				return "signup";
+			}else{
 			
 			log.info("saveSignUpPage : Fetching user detail based on email");
 			User userExisting = userDao.getUserByEmail(user.getEmail());
@@ -189,7 +197,7 @@ public class HomeController {
 				
 				model.addAttribute("errorMessage","This Email is already registered");
 				model.addAttribute("user", new User());
-				return "signup";
+				return "login";
 			}
 			log.info("saveSignUpPage : Register the new user");
 			user.setRole("ROLE_USER");
@@ -203,5 +211,6 @@ public class HomeController {
 			model.addAttribute("firstname", user.getFirstName()+" "+user.getLastName());
 			
 			return "home";
+			}
 		}
 }
