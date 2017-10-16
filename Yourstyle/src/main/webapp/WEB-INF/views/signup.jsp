@@ -60,15 +60,16 @@
 		    <div class="form-group row">
 				 <div class="col-xs-6">
 		    <label for="password">Password: </label>
-		    <form:input type="password" class="form-control" path="password"  placeholder="Enter Password"  name="password" required="required"/>
+		    <form:input type="password" class="form-control" path="password"  placeholder="Enter Password" />
 		    <form:errors path="password" cssClass="error"/>
+		  
 		    </div>
 		    </div>
 			
 			<div class="form-group row">
 				 <div class="col-xs-6">		
 		    <label for="passwordRepeat">Repeat Password: </label>
-		    <input type="password" class="form-control"  placeholder="Enter Repeat Password"  name="passwordRepeat" required="required"/>
+		    <input type="password" class="form-control"  placeholder="Enter Repeat Password"  name="passwordRepeat" required/>
 		    </div>
 		    </div>
 		    <br/>

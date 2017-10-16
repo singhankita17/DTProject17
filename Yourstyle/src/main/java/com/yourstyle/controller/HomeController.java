@@ -181,11 +181,17 @@ public class HomeController {
 		}
 		
 		@RequestMapping(value="savesignup", method = RequestMethod.POST)
-		public String saveSignUpPage(@Valid @ModelAttribute("user") User user, BindingResult result,ModelMap model){
+		public String saveSignUpPage(@Valid @ModelAttribute("user") User user, BindingResult result,ModelMap model,@RequestParam("passwordRepeat")String passwordRepeat){
 			
 			if(result.hasErrors()){
+				System.out.println(result.getAllErrors().toString());
 				return "signup";
 			}else{
+			log.info("saveSignUpPage : Check if Password and confirm password are Same");
+			if(!user.getPassword().equals(passwordRepeat)){
+				model.addAttribute("errorMessage","Fields Password and Confirm Password do not match");
+				return "signup";
+			}
 			
 			log.info("saveSignUpPage : Fetching user detail based on email");
 			User userExisting = userDao.getUserByEmail(user.getEmail());

@@ -39,7 +39,7 @@ public class User {
 		
 		private long phone;
 				
-		@NotNull
+		
 		private String role;
 		
 		
@@ -60,28 +60,7 @@ public class User {
 		@OneToMany(fetch = FetchType.EAGER, mappedBy = "personId", cascade = CascadeType.ALL)
 		private Set<Address> userAddress = new HashSet<Address>(0);
 		
-
-		public User(int id, String firstName, String lastName, String email, String password, String role,
-				Boolean enabled, Timestamp createdTimestamp, String createdBy, Timestamp updatedTimestamp,
-				String updatedBy) {
-			super();
-			Id = id;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.email = email;
-			this.password = password;
-			this.role = role;
-			this.enabled = enabled;
-			this.createdTimestamp = createdTimestamp;
-			this.createdBy = createdBy;
-			this.updatedTimestamp = updatedTimestamp;
-			this.updatedBy = updatedBy;
-		}
-
-		public User() {
-			
-		}
-
+		
 		@Override
 		public String toString() {
 			
