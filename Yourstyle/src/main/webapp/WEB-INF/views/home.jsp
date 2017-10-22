@@ -17,9 +17,8 @@
 <jsp:include page="header.jsp" /> 
 <body>
 <div class="container" style="height: 1000px;">
-Welcome user <sec:authentication property="name"/> !!!
 
-
+<c:if test="${not empty products}">
 		<table class="table table-striped table-bordered" style="width:80%">
 			<thead>
 			<tr>
@@ -59,6 +58,7 @@ Welcome user <sec:authentication property="name"/> !!!
 			   </c:forEach>
 			</tbody>
 		</table>
+		</c:if>
 </div>
 </body>
 <jsp:include page="footer.jsp" /> 

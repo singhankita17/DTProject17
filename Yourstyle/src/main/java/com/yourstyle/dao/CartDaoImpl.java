@@ -1,8 +1,11 @@
 package com.yourstyle.dao;
 
+import java.util.List;
+
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -71,23 +74,27 @@ public class CartDaoImpl implements CartDao{
 
 	@Transactional
 	@Override
-	public Cart getCartByUserId(int userId) {
+	public List<Cart> getCartByUserId(int userId) {
 		log.info("CartDaoImpl : get Cart detail by user Id");
-		Cart cart= (Cart) sessionFactory.getCurrentSession().createQuery("select c from Cart c where c.userId = :userId")
-				.setParameter("userId", userId).uniqueResult();
+		List<Cart> cartList=  sessionFactory.getCurrentSession().createQuery("from Cart where userId = :userId",Cart.class).setParameter("userId", userId).list();
 		
-		log.info("CartDaoImpl : Fetched Cart detail by Id => "+cart.toString());
-		return cart;
+		log.info("CartDaoImpl : Fetched Cart detail by User Id => ");
+		return cartList;
 	}
 
 	@Transactional
 	public Cart getCartItem(int productId, int userId){
 		log.info("CartDaoImpl : get Cart Item by user Id and product Id");
+		Cart cart;
+		try{
 		String query = "from Cart where userId = :userId and productId = :productId and status = 'ACTIVE'";
 		log.info("CartDaoImpl : get Cart Item by user Id and product Id ---set Parameter");
-		Query queryObj = sessionFactory.getCurrentSession().createQuery(query).setParameter("userId", userId).setParameter("productId", productId);
+		Query queryObj = sessionFactory.getCurrentSession().createQuery(query,Cart.class).setParameter("userId", userId).setParameter("productId", productId);
 		log.info("CartDaoImpl : getCartItem --- executeQuery");
-		Cart cart = (Cart) queryObj.getSingleResult();
+		  cart = (Cart) queryObj.getSingleResult();
+		}catch(Exception he){
+			cart =null;
+		}
 		
 		return cart;
 	}
@@ -95,18 +102,28 @@ public class CartDaoImpl implements CartDao{
 	@Transactional
 	@Override
 	public double getCartTotal(int userId) {
+		double totalCartValue =0.0;
+		try{
 		String queryString = "select sum(subTotal) from Cart c where userId = :userId and status = 'ACTIVE'";
 		Query query = sessionFactory.getCurrentSession().createQuery(queryString).setParameter("userId", userId);
-		double totalCartValue = (double) query.getSingleResult();
+		totalCartValue = (double) query.getSingleResult();
+		}catch(Exception he){
+			totalCartValue = 0;
+		}
 		return totalCartValue;
 	}
 
 	@Transactional
 	@Override
 	public long getCartSize(int userId) {
+		long totalCartSize = 0;
+		try{
 		String queryString = "select count(c) from Cart c where userId = :userId and status = 'ACTIVE'";
 		Query query = sessionFactory.getCurrentSession().createQuery(queryString).setParameter("userId", userId);
-		long totalCartSize = (long) query.getSingleResult();
+		totalCartSize = (long) query.getSingleResult();
+		}catch(Exception he){
+			totalCartSize = 0;
+		}
 		return totalCartSize;
 	}
 }

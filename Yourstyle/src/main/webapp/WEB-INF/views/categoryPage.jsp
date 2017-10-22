@@ -94,7 +94,6 @@
 
 <a class="btn btn-primary"  href="removecategory/${category.id}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
 								</a>
-
 							</nobr></td>
 			   		</tr>
 			   </c:forEach>

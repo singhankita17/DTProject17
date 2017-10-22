@@ -89,5 +89,14 @@ public class AddressDaoImpl implements AddressDao {
 		log.info("AddressDaoImpl : Successful retrieval of Address details of given user Id --"+userId);
 		return results;
 	}
+	
+	@Transactional
+	public Address getAddressOfUser(int userId){
+		
+		Session session = sessionFactory.openSession();
+		Address address = session.createQuery("from Address where personId = :userId",Address.class).setParameter("userId", userId).uniqueResult();
+		session.close();
+		return address;
+	}
 
 }

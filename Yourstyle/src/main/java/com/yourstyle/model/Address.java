@@ -24,6 +24,8 @@ public class Address {
 		
 		private String address2;
 		
+		private String landmark;
+		
 		private String city;
 		
 		private String state;
@@ -165,6 +167,15 @@ public class Address {
 		public void setPersonId(int personId) {
 			this.personId = personId;
 		}
+
+		public String getLandmark() {
+			return landmark;
+		}
+
+		public void setLandmark(String landmark) {
+			this.landmark = landmark;
+		}
+		
 		
 		
 }

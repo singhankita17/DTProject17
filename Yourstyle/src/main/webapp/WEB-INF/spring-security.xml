@@ -29,6 +29,8 @@
 				<intercept-url pattern="/saveProduct*" access="hasRole('ROLE_ADMIN')"/>
 				<intercept-url pattern="/editproduct*" access="hasRole('ROLE_ADMIN')"/>
 				<intercept-url pattern="/removeproduct*" access="hasRole('ROLE_ADMIN')"/>
+				<intercept-url pattern="/goToCart" access="hasRole('ROLE_USER')"/>
+				<intercept-url pattern="/addToCart/**" access="hasRole('ROLE_USER')"/>
 				<intercept-url pattern="/accessDenied*" access="isAuthenticated()"/>
 				<form-login login-page="/login" authentication-failure-url="/loginfailed" default-target-url="/home" 
 				login-processing-url="/perform_login"
@@ -41,9 +43,10 @@
 		
 		<authentication-manager>
 				<authentication-provider>
-					<jdbc-user-service  data-source-ref="dataSource" authorities-by-username-query="Select email,role from Users where email = ?"
-					users-by-username-query="Select email,password,enabled from Users where email = ?"/>
+					<jdbc-user-service  data-source-ref="dataSource" users-by-username-query="Select email,password,enabled from Users where email = ?"
+					authorities-by-username-query="Select email,role from Users where email = ?"/>
 				</authentication-provider>
 		</authentication-manager>
+		
 		
 </b:beans>

@@ -3,6 +3,7 @@ package com.yourstyle.testcase;
 import static org.junit.Assert.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -17,7 +18,7 @@ import com.yourstyle.model.Cart;
 import com.yourstyle.model.Category;
 
 
-
+@Ignore
 public class CartTest {
 	
 	@Autowired
@@ -84,9 +85,11 @@ public class CartTest {
 	@Ignore
 	@Test
 	public void getCartDetailByUserTest(){
-		Cart cartObj = cartDao.getCartByUserId(48);
+		List<Cart> cartObj = cartDao.getCartByUserId(48);
 		assertNotNull("Problem in fetching cart detail by User Id",cartObj);
-		showCart(cartObj);
+		for(Cart item:cartObj){
+			showCart(item);
+		}
 	}
 	
 	private void showCart(Cart cartObj) {
@@ -109,7 +112,7 @@ public class CartTest {
 	@Test
 	public void getCartItemTest(){
 		
-		cart = cartDao.getCartItem(135, 546);
+		cart = cartDao.getCartItem(101, 546);
 		
 		assertNotNull("Problem in retrieving cart item",cart);
 		

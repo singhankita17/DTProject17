@@ -22,6 +22,8 @@ public class Cart {
 	
 	private int quantityAdded;
 	
+	private double productPrice;
+	
 	private double subTotal;
 	
 	private String status;
@@ -116,6 +118,15 @@ public class Cart {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
+	public double getProductPrice() {
+		return productPrice;
+	}
+
+	public void setProductPrice(double productPrice) {
+		this.productPrice = productPrice;
+	}
+	
 	
 	
 }

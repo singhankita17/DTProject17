@@ -49,13 +49,19 @@
 				</ul>
 				</li>
 				</sec:authorize>
+				<%-- 
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<a href="${pageContext.request.contextPath}/adminAdd">Admin Action<span class="caret"></span></a>
+				</sec:authorize> --%>
 			</ul>
+			<%-- 
 			<form class="navbar-form navbar-right">
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search">
-					<button type="submit" class="btn btn-default">Go <span class="glyphicon glyphicon-search"></span></button>
+					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
 				</div>
 			</form>
+			 --%>
 			<ul class="nav navbar-nav navbar-right">	
 			 <sec:authorize access="isAnonymous()">	    
 				   <li><a href="${pageContext.request.contextPath}/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>				
@@ -63,8 +69,10 @@
 				   <li><a href="${pageContext.request.contextPath}/login"><span class="glyphicon glyphicon-log-in"></span> LogIn</a></li>
 				 </sec:authorize>  
 				<sec:authorize access="isAuthenticated()">
+					<li><a href="#">Welcome : <sec:authentication property="name"/></a></li>
 					<li><a href="<c:url value="/logout" />">Logout</a></li>
 				</sec:authorize>
+				 <li><a href="${pageContext.request.contextPath}/goToCart"><span class="glyphicon glyphicon-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span> Cart</a></li>
 			</ul>
 		  </div>
 		</div>

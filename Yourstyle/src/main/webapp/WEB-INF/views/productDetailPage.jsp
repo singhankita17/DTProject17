@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+  <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -32,6 +33,8 @@
       <p>${product.productDesc}</p>
       <p>${product.price}</p>
       <p>${product.brandName}</p>
+      	<a class="btn btn-primary" href="${pageContext.request.contextPath}/addToCart/${product.id}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> ADD TO CART</a>
+      
       </div>
       
       </div>

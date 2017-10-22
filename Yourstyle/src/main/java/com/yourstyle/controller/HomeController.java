@@ -48,8 +48,7 @@ public class HomeController {
 		ProductDao productDao;
 		
 		private static Logger log = LoggerFactory.getLogger(HomeController.class);
-		
-		
+			
 		
 		@RequestMapping(value="/")
 		public String showIndexPage(HttpSession session){
@@ -119,6 +118,7 @@ public class HomeController {
 					
 					String role="ROLE_ADMIN";
 					model.addAttribute("user", user);
+					session.setAttribute("user", user);
 					for (GrantedAuthority authority : authorities) 
 					{
 						log.info("login_attributes :  check for Admin Role");

@@ -27,15 +27,15 @@
 			
 				<div class="form-group row">
 				 <div class="col-xs-6">
-					<label for="email">Email:  </label>
-					<input type="email" class="form-control" id="email" placeholder="Enter Email" path = "email"/>
+					<label for="username">Email:  </label>
+					<input type="email" class="form-control" id="email" name="email"/>
 				</div>
 				</div>
 				<br/>
 				<div class="form-group row">
 					 <div class="col-xs-6">
 					<label for="password">Password: </label>
-					<input type="password" class="form-control" id="password" placeholder="Enter Password"  path="password" maxlength="15" />
+					<input type="password" class="form-control" id="password"  name="password" maxlength="15" />
 					</div>
 				</div>
 				<br/>

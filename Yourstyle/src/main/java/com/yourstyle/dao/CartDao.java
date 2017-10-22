@@ -1,6 +1,8 @@
 package com.yourstyle.dao;
 
 
+import java.util.List;
+
 import com.yourstyle.model.Cart;
 
 
@@ -12,7 +14,7 @@ public interface CartDao {
 	
 	public boolean deleteCartById(int cartId);
 	
-	public Cart getCartByUserId(int userId);
+	public List<Cart> getCartByUserId(int userId);
 	
 	public Cart getCartItem(int productId, int userId);
 	
