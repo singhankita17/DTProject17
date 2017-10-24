@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import com.yourstyle.dao.CartDao;
 import com.yourstyle.dao.ProductDao;
 import com.yourstyle.model.Address;
 import com.yourstyle.model.Cart;
-import com.yourstyle.model.Category;
 import com.yourstyle.model.Product;
 import com.yourstyle.model.User;
 
@@ -44,7 +42,7 @@ public class CartController {
 	@Autowired
 	AddressDao addressDao;
 	
-	@RequestMapping(value="/addToCart/{id}",method = RequestMethod.GET)
+	@RequestMapping(value="addToCart/{id}",method = RequestMethod.GET)
 	public String addProductToCart(@PathVariable("id") int id, HttpSession session,Model model,RedirectAttributes attributes){
 		log.info("addProductToCart : Save Product to cart -- based on given Product Id");
 		int qtyToAdd = 1;
@@ -53,10 +51,15 @@ public class CartController {
 		Product  product = productDao.getProductById(id);
 		Cart cartItem = cartDao.getCartItem(id, user.getId());
 		
+		int remainingQty = product.getQuantityAvailable() - qtyToAdd;
+		
+		if(remainingQty >= 0){
+		
 		if( cartItem != null){
 			
 			qtyToAdd = cartItem.getQuantityAdded() + qtyToAdd;
 			cartItem.setQuantityAdded(qtyToAdd);
+		
 			if(product.isOnSale()){
 				cartItem.setProductPrice(product.getSalePrice());
 				cartItem.setSubTotal(product.getSalePrice() * qtyToAdd);
@@ -67,7 +70,7 @@ public class CartController {
 			cartItem.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
 			cartItem.setUpdatedBy("SYSTEM");
 			
-			cartDao.saveOrUpdate(cartItem);
+			attributes.addFlashAttribute("message", "This product was already added to cart");
 			
 		}else{
 			cartItem = new Cart();
@@ -87,13 +90,23 @@ public class CartController {
 			cartItem.setCreatedBy("SYSTEM");
 			cartItem.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
 			
-			cartDao.saveOrUpdate(cartItem);
+			attributes.addFlashAttribute("message", "Product successfully added to cart");
+			
 		}
 		
+		cartDao.saveOrUpdate(cartItem);
+		}
+		else
+		{
+			attributes.addFlashAttribute("error", "Product not in Stock");
+			
+		}
 		log.info("addProductToCart : Product added to cart --->"+id);
 		//model.addAttribute("cartItem", product);
 		//attributes.addFlashAttribute("product", product);
-		return "redirect:/";
+		//return "redirect:/";
+		attributes.addFlashAttribute("product", product);
+		return "redirect:/productDetailPage";
 	}
 	
 	@RequestMapping(value="goToCart",method = RequestMethod.GET)
@@ -114,34 +127,29 @@ public class CartController {
 		return "CartPage";
 	}
 	
-	@RequestMapping(value="editCartItem/{id}",method=RequestMethod.GET)
-	public String editCartItem(@PathVariable("id") int id,@RequestParam("cartQty") int cartQuantity,HttpSession session,RedirectAttributes attributes){
+	@RequestMapping(value="editCartItem/{id}")
+	public String editCartItem(@PathVariable("id") int id,@RequestParam("cartQty") int cartQty,HttpSession session,RedirectAttributes attributes){
 		 
 		log.info("editCartItem : Edit Cart Item details -- fetch Cart by Id");
 		Cart cartItem = cartDao.getCartById(id);
 		
+		
 		Product product = productDao.getProductById(cartItem.getProductId());
 		
-		if(product.getQuantityAvailable() - cartQuantity >= 0){
-			
+		int remainingQty = product.getQuantityAvailable() - cartQty;
 		
-				product.setQuantityAvailable(product.getQuantityAvailable() - cartQuantity);
-				
+		if(remainingQty >= 0){
+									
 				User user = (User) session.getAttribute("user");
-				product.setUpdatedBy(user.getEmail());
-				product.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
 				
-				productDao.saveOrUpdate(product);
-				
-				
-				cartItem.setQuantityAdded(cartQuantity);
+				cartItem.setQuantityAdded(cartQty);
 				
 				if(product.isOnSale()){
 					cartItem.setProductPrice(product.getSalePrice());
-					cartItem.setSubTotal(product.getSalePrice() * cartQuantity);
+					cartItem.setSubTotal(product.getSalePrice() * cartQty);
 				}else{
 					cartItem.setProductPrice(product.getPrice());
-					cartItem.setSubTotal(product.getPrice() * cartQuantity);
+					cartItem.setSubTotal(product.getPrice() * cartQty);
 				}
 				
 				cartItem.setUpdatedBy(user.getEmail());
@@ -151,7 +159,7 @@ public class CartController {
 				//attributes.addAttribute("error", "");
 				
 		}else{
-			attributes.addAttribute("error", "Insufficient stock for product --> "+product.getProductName());
+			attributes.addFlashAttribute("error", "Insufficient stock for product --> "+product.getProductName());
 		}
 		
 		return "redirect:/goToCart";
@@ -166,15 +174,9 @@ public class CartController {
 		Cart cartItem = cartDao.getCartById(id);
 		
 		Product product = productDao.getProductById(cartItem.getProductId());
-		
-		product.setQuantityAvailable(product.getQuantityAvailable() + cartItem.getQuantityAdded());
-		
+					
 		User user = (User) session.getAttribute("user");
-		product.setUpdatedBy(user.getEmail());
-		product.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
-		
-		productDao.saveOrUpdate(product);
-		
+				
 		cartDao.deleteCartById(id);
 		
 		return "redirect:/goToCart";
@@ -184,13 +186,29 @@ public class CartController {
 	
 	@RequestMapping(value="shippingAddress",method = RequestMethod.GET)
 	public String showShippingPage(@ModelAttribute("address") Address address,BindingResult result, HttpSession session,Model model){
+		
 		User user = (User) session.getAttribute("user");
 		
 		List<Cart> cartList = cartDao.getCartByUserId(user.getId());
 				
 		model.addAttribute("cartList", cartList);
+		model.addAttribute("addressList", addressDao.getAllAddressOfUser(user.getId()));
 		
 		return "shipping";
+	}
+	
+	
+	@RequestMapping(value="selectShippingAddress",method = RequestMethod.POST)
+	public String selectShippingAddress(@RequestParam("shipaddress") int id,HttpSession session,Model m,RedirectAttributes attributes){
+		
+		User user = (User) session.getAttribute("user");
+		
+		Address address = addressDao.getAddressById(id);
+		session.setAttribute("address", address);
+		attributes.addFlashAttribute("address", address);
+		attributes.addFlashAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
+		
+		return "redirect:/orderSummary";
 	}
 	
 	@RequestMapping(value="saveShippingAddress",method = RequestMethod.POST)
@@ -202,7 +220,7 @@ public class CartController {
 		address.setPersonId(user.getId());
 		
 		addressDao.saveOrUpdate(address);
-		
+		session.setAttribute("address", address);
 		attributes.addFlashAttribute("address", address);
 		attributes.addFlashAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		
@@ -213,8 +231,8 @@ public class CartController {
 	public String showOrderSummary(HttpSession session,Model model){
 		
 		User user = (User) session.getAttribute("user");
-		
-		model.addAttribute("address", addressDao.getAddressOfUser(user.getId()));
+		Address address = (Address) session.getAttribute("address");
+		model.addAttribute("address", address);
 		model.addAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		
 		return "orderSummary";

@@ -76,12 +76,11 @@ public class AddressDaoImpl implements AddressDao {
 		CriteriaQuery<Address> cq = cb.createQuery(Address.class);
 		
 		Root<Address> addressRoot  = cq.from(Address.class);
-		ParameterExpression<String> id = cb.parameter(String.class);
+		ParameterExpression<Integer> personId = cb.parameter(Integer.class);
 		
-		cq.select(addressRoot).where(cb.equal(addressRoot.get("id"), id));
+		cq.select(addressRoot).where(cb.equal(addressRoot.get("personId"), userId));
 		
 		Query query = session.createQuery(cq);
-		query.setParameter("personId", userId);
 		
 		log.info("AddressDaoImpl : criteria query of Address details of given user Id --"+query.toString());
 		@SuppressWarnings(value="unchecked")

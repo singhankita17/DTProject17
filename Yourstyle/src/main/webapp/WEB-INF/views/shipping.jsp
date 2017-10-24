@@ -14,10 +14,30 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Shipping Address</title>
 </head>
-<jsp:include page="header.jsp" /> 
+<jsp:include page="headercart.jsp" /> 
 <body>
 <div class="container">
-	
+<div class="row">
+	<form  action="selectShippingAddress" method="post">
+			Select a delivery Address:<br>
+			<c:forEach var="address" items="${addressList}">
+			<div class="radio">
+			<input type="radio" name="shipaddress" value="${address.id}"> <p> ${address.name}<br/>
+      		${address.address1}
+      		<br/>${address.address2}
+      		<br/>${address.landmark}
+      		 <p>${address.city} &nbsp; ${address.state}
+      		 <br/> Pincode : ${address.pincode}	
+      		 </p>
+      		 </div>		
+			</c:forEach>
+			
+			 <button type="submit" class="btn btn-warning">Deliver to this Address</button>
+	</form>
+</div>
+</div>
+<div class="container">
+<h4>Add a new Address :</h4>
 	<form:form commandName="address" action="saveShippingAddress" method="post">
 		<div class="form-group row">
 		<div class= "col-xs-6">

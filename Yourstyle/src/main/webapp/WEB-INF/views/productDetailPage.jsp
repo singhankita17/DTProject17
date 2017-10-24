@@ -17,6 +17,12 @@
 <jsp:include page="header.jsp" /> 
 <body>
 <div class="container">
+<c:if test="${not empty error}">
+	    	<h4> <font color="red">${error} </font></h4>
+	</c:if>
+	<c:if test="${not empty message}">
+	    	<h4> <font color="blue">${message} </font></h4>
+	</c:if>
 <div class = "row">
       <div class = "col-xs-6">
       	<img id="productImg" src="<c:url value="${pageContext.request.pathInfo}/resources/images/${product.id}.jpg"/>" class="img-thumbnail"/>
@@ -33,6 +39,11 @@
       <p>${product.productDesc}</p>
       <p>${product.price}</p>
       <p>${product.brandName}</p>
+      <c:choose>
+      <c:when test="${product.inStock eq true}"> Available in Stock</c:when>
+      <c:when test="${not product.inStock}"> Out Of Stock</c:when>
+      </c:choose>
+      <br><br>
       	<a class="btn btn-primary" href="${pageContext.request.contextPath}/addToCart/${product.id}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> ADD TO CART</a>
       
       </div>

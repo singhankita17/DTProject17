@@ -14,40 +14,41 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Order Summary</title>
 </head>
-<jsp:include page="header.jsp" /> 
+<jsp:include page="headercart.jsp" /> 
 <body>
 
 <div class="container">
 <div class = "row">
-      <div class = "col-xs-8">
+      <div class = "col-xs-8 jumbotron">
       	<div class = "col-xs-5">
-      		<h4>Shipping Address:</h4><br>
-      		<p> ${address.name}<br/>
+      		<p>Shipping Address:</p><br>
+      		 ${address.name}<br/>
       		${address.address1}
       		<br/>${address.address2}
       		<br/>${address.landmark}
-      		 <p>${address.city} &nbsp; ${address.state}
+      		 <br>${address.city} &nbsp; ${address.state}
       		 <br/> Pincode : ${address.pincode}
-      		<br/> Phone: <c:choose><c:when test="${not empty address.phone}">${address.phone}</c:when>
-      		<c:when test="${empty address.phone}">${sessionScope.user.phone}</c:when>
+      		<br/> Phone: <c:choose>
+      		<c:when test="${address.phone eq 0}">${sessionScope.user.phone}</c:when>
+      		<c:when test="${not empty address.phone}">${address.phone}</c:when>
       		</c:choose>
       	</div>
-      	<div class = "col-xs-3">
-      	 <h4>Payment Method </h4>
-      	 <p>Cash on Delivery</p>
+      	<div class = "col-xs-4">
+      	 <p>Payment Method</p>
+      	 <br>Cash on Delivery
       	</div>
       </div>
       
       <div class= "col-xs-4">
       
       	 <div class ="jumbotron">
-      	 <a class="btn btn-warning" href="">Place Order</a><br><br/>
+      	 <a class="btn btn-warning btn-block" href="">Place Order</a><br><br/>
       	 <p>Order Summary</p>
       	 <h5> Items Subtotal : ${cartTotalAmount}</h5>
       	 <h5> Delivery Charges: 50.0 </h5>
       	 <hr/>
       	 <c:set var="ordertot" value="${cartTotalAmount + 50}"></c:set>
-      	 <p>Order Total : ${ordertot}</p>
+      	 <p>OrderTotal: ${ordertot}</p>
       
       	 </div>
       </div>
