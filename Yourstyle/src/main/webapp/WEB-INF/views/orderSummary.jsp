@@ -16,7 +16,6 @@
 </head>
 <jsp:include page="headercart.jsp" /> 
 <body>
-
 <div class="container">
 <div class = "row">
       <div class = "col-xs-8 jumbotron">
@@ -42,7 +41,7 @@
       <div class= "col-xs-4">
       
       	 <div class ="jumbotron">
-      	 <a class="btn btn-warning btn-block" href="">Place Order</a><br><br/>
+      	 <a class="btn btn-warning btn-block" href="${pageContext.request.contextPath}/processOrder">Place Order</a><br><br/>
       	 <p>Order Summary</p>
       	 <h5> Items Subtotal : ${cartTotalAmount}</h5>
       	 <h5> Delivery Charges: 50.0 </h5>

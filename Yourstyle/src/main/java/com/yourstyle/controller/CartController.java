@@ -20,9 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yourstyle.dao.AddressDao;
 import com.yourstyle.dao.CartDao;
+import com.yourstyle.dao.OrderDao;
 import com.yourstyle.dao.ProductDao;
 import com.yourstyle.model.Address;
 import com.yourstyle.model.Cart;
+import com.yourstyle.model.Orders;
 import com.yourstyle.model.Product;
 import com.yourstyle.model.User;
 
@@ -41,6 +43,9 @@ public class CartController {
 	
 	@Autowired
 	AddressDao addressDao;
+	
+	@Autowired
+	OrderDao orderDao;
 	
 	@RequestMapping(value="addToCart/{id}",method = RequestMethod.GET)
 	public String addProductToCart(@PathVariable("id") int id, HttpSession session,Model model,RedirectAttributes attributes){
@@ -171,11 +176,11 @@ public class CartController {
 		 
 		log.info("removeCartItem : Delete Cart Item details -- fetch Cart by Id");
 		
-		Cart cartItem = cartDao.getCartById(id);
+		//Cart cartItem = cartDao.getCartById(id);
 		
-		Product product = productDao.getProductById(cartItem.getProductId());
+		//Product product = productDao.getProductById(cartItem.getProductId());
 					
-		User user = (User) session.getAttribute("user");
+		//User user = (User) session.getAttribute("user");
 				
 		cartDao.deleteCartById(id);
 		
@@ -236,6 +241,56 @@ public class CartController {
 		model.addAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		
 		return "orderSummary";
+	}
+	
+	@RequestMapping(value="processOrder")
+	public String placeOrder(HttpSession session){
+		log.info("placeOrder : Processing order details");
+		Orders order=new Orders();
+		
+		log.info("placeOrder : Set user attributes");
+		User user = (User) session.getAttribute("user");
+		
+		order.setUserId(user.getId());
+		
+		log.info("placeOrder : Set shipping address");
+		Address address = (Address) session.getAttribute("address");
+		
+		order.setShipAddressId(address.getId());
+		
+		List<Cart> cartItemsList = cartDao.getCartByUserId(user.getId());
+		
+		double totalAmount = 0;
+		log.info("placeOrder : update Total Order amount");
+		for(Cart cartItem:cartItemsList){
+			
+			totalAmount += cartItem.getProductPrice() * cartItem.getQuantityAdded();
+		}
+		order.setTotalAmount(totalAmount);
+		order.setOrderStatus("PROCESSED");		
+		order.setPaymentMethod("COD");	
+		order.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
+		order.setCreatedBy("SYSTEM");		
+		
+		log.info("placeOrder : Save order details");
+		orderDao.saveOrUpdate(order);
+		
+		log.info("placeOrder : Update product Quantity");
+		for(Cart cartItem:cartItemsList){
+			
+			Product product = productDao.getProductById(cartItem.getProductId());
+			int quantityRemaining = product.getQuantityAvailable() - cartItem.getQuantityAdded();
+			product.setQuantityAvailable(quantityRemaining);
+			if(quantityRemaining==0){
+				product.setInStock(false);
+			}
+			productDao.saveOrUpdate(product);
+		}
+		log.info("placeOrder : Update Cart Status");
+		String statusValue = "INACTIVE";
+		cartDao.updateCartStatus(user.getId(), statusValue);
+		
+		return "acknowledgement";
 	}
 
 }

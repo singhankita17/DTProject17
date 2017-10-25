@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -39,7 +38,7 @@ public class CartDaoImpl implements CartDao{
 	@Override
 	public Cart getCartById(int cartId) {
 		log.info("CartDaoImpl : get Cart detail by Id");
-		Cart cart= (Cart) sessionFactory.getCurrentSession().createQuery("select c from Cart c where c.id = :cartId")
+		Cart cart= (Cart) sessionFactory.getCurrentSession().createQuery("from Cart where id = :cartId")
 				.setParameter("cartId", cartId).uniqueResult();
 		
 		log.info("CartDaoImpl : Fetched Cart detail by Id => "+cart.toString());
@@ -76,7 +75,7 @@ public class CartDaoImpl implements CartDao{
 	@Override
 	public List<Cart> getCartByUserId(int userId) {
 		log.info("CartDaoImpl : get Cart detail by user Id");
-		List<Cart> cartList=  sessionFactory.getCurrentSession().createQuery("from Cart where userId = :userId",Cart.class).setParameter("userId", userId).list();
+		List<Cart> cartList=  sessionFactory.getCurrentSession().createQuery("from Cart where userId = :userId and status = 'ACTIVE'",Cart.class).setParameter("userId", userId).list();
 		
 		log.info("CartDaoImpl : Fetched Cart detail by User Id => ");
 		return cartList;
@@ -125,5 +124,18 @@ public class CartDaoImpl implements CartDao{
 			totalCartSize = 0;
 		}
 		return totalCartSize;
+	}
+
+	@Transactional
+	@Override
+	public int updateCartStatus(int userId, String status) {
+		String query = "UPDATE Cart set status = :statusVal WHERE userId = :userId AND status = 'ACTIVE'";
+		
+		 Session session = sessionFactory.openSession();
+		 session.beginTransaction();
+		 int rowsAffected = session.createQuery(query).setParameter("statusVal", status)
+		 .setParameter("userId", userId).executeUpdate();
+		 session.getTransaction().commit();
+		return rowsAffected;
 	}
 }

@@ -21,4 +21,6 @@ public interface CartDao {
 	public double getCartTotal(int userId);
 	
 	public long getCartSize(int userId);
+	
+	public int updateCartStatus(int userId,String status);
 }

@@ -29,7 +29,7 @@ public class Cart {
 	private String status;
 	
 	private int userId;
-	
+		
 	private Timestamp createdTimestamp;
 	
 	private String createdBy;
@@ -126,7 +126,6 @@ public class Cart {
 	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
-	
 	
 	
 }
