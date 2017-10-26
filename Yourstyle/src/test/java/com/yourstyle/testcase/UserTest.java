@@ -100,22 +100,7 @@ public class UserTest {
 			assertEquals("updateUserTestCase",true,flag);
 		}
 		
-		
-		@Test
-		public void deleteUserTest(){
-			
-			int userId = 46;
-			boolean flag = userDao.deleteUserById(userId);
-			assertTrue("deleteUserTestCase",flag==true);
-		}
-		
-		@Test(expected = EntityNotFoundException.class)
-		public void deleteUserUnsuccessfulTest(){
-			int userId = 45;
-			boolean flag = userDao.deleteUserById(userId);
-						
-		}
-		
+				
 		@Test
 		public void findUserByEmailTest(){
 			

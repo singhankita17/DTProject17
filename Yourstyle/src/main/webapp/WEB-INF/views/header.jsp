@@ -54,14 +54,14 @@
 				<a href="${pageContext.request.contextPath}/adminAdd">Admin Action<span class="caret"></span></a>
 				</sec:authorize> --%>
 			</ul>
-			<%-- 
-			<form class="navbar-form navbar-right">
+			
+			<form class="navbar-form navbar-right" action="searchProduct" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
+					<input type="text" class="form-control" placeholder="Search" name="searchString">
 					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
 				</div>
 			</form>
-			 --%>
+			
 			<ul class="nav navbar-nav navbar-right">	
 			 <sec:authorize access="isAnonymous()">	    
 				   <li><a href="${pageContext.request.contextPath}/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>				

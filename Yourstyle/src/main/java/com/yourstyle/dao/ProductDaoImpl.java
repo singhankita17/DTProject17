@@ -76,8 +76,37 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Product> getAllProductForCategory(int catId) {
 		log.info("ProductDaoImpl : get all Products under given Category Id -- "+catId);
 		Session session = sessionFactory.openSession();
+		session.beginTransaction();
 		List<Product> products = session.createQuery("from Product where categoryId = :catId",Product.class).setParameter("catId", catId).list();
+		session.getTransaction().commit();
 		session.close();
+		return products;
+	}
+
+	@Transactional
+	public List<Product> getProductByBrand(String brandName) {
+		String queryString = "from Product where brandName = :brandName";
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		List<Product> products = session.createQuery(queryString,Product.class).setParameter("brandName", brandName).list();
+		session.getTransaction().commit();
+		session.close();
+		
+		return products;
+	}
+
+	@Transactional
+	public List<Product> getProductBySearchText(String searchString) {
+	    
+		String queryString = "from Product where lower(productName) like '%"+searchString.toLowerCase()+"%' or lower(productDesc) like '%"+searchString.toLowerCase()+"%'";
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		List<Product> products = session.createQuery(queryString,Product.class).list();
+		session.getTransaction().commit();
+		session.close();
+		
 		return products;
 	}
 

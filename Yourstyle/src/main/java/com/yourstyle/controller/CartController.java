@@ -48,9 +48,9 @@ public class CartController {
 	OrderDao orderDao;
 	
 	@RequestMapping(value="addToCart/{id}",method = RequestMethod.GET)
-	public String addProductToCart(@PathVariable("id") int id, HttpSession session,Model model,RedirectAttributes attributes){
+	public String addProductToCart(@PathVariable("id") int id,@RequestParam("quantityToAdd") int quantityToAdd, HttpSession session,Model model,RedirectAttributes attributes){
 		log.info("addProductToCart : Save Product to cart -- based on given Product Id");
-		int qtyToAdd = 1;
+		int qtyToAdd = quantityToAdd;
 		
 		User user = (User) session.getAttribute("user");		
 		Product  product = productDao.getProductById(id);

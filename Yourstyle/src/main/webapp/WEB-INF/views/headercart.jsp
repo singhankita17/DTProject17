@@ -26,7 +26,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><img alt="YourStyle"  style="max-width:70px; margin-top: -7px;" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img alt="YourStyle"  style="max-width:70px; margin-top: -7px;" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
 			</div>
 			<div class="collapse navbar-collapse" id="ysNavbar">
 			</div>

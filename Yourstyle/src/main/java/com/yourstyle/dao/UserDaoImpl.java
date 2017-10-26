@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
 		
 		return (User) user;
 	}
-
+/*
 	@Transactional
 	public boolean deleteUserById(int userId) {
 		
@@ -64,7 +64,7 @@ public class UserDaoImpl implements UserDao {
 		}
 		
 		return true;
-	}
+	}*/
 
 	@Transactional
 	public User getUserByEmail(String email) {

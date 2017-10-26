@@ -163,6 +163,9 @@
 			   			<td><c:out value="${product.quantityAvailable}"></c:out></td>
 			   			<td><c:out value="${product.onSale}"></c:out></td>
 			   			<td><c:out value="${product.salePrice}"></c:out></td>
+			   			<td>
+			   			<img src="<c:url value="resources/images/${product.id}.jpg" />" class = "img-thumbnail" width="204px" height="106px"/>
+			   			</td>
 			   			<td><nobr>
 			<a class="btn btn-primary" href="editproduct/${product.id}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>
 

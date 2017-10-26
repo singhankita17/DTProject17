@@ -16,4 +16,8 @@ public interface ProductDao {
 	public List<Product> getAllProducts();
 	
 	public List<Product> getAllProductForCategory(int catId);
+	
+	public List<Product> getProductByBrand(String brandName);
+	
+	public List<Product> getProductBySearchText(String searchString);
 }

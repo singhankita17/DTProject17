@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<jsp:include page="header.jsp" /> 
+	<jsp:include page="headercart.jsp" /> 
 
 	<div class="container" style="height: 450px;">
 				<p><font color="red">${error}</font></p>

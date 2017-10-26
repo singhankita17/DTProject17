@@ -3,7 +3,6 @@
  <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>   
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -13,31 +12,41 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Shipping Address</title>
+
 </head>
 <jsp:include page="headercart.jsp" /> 
 <body>
 <div class="container">
-<div class="row">
+
 	<form  action="selectShippingAddress" method="post">
-			Select a delivery Address:<br>
+			<h3>Select a delivery Address:</h3><br>
+			<div class="row">
 			<c:forEach var="address" items="${addressList}">
-			<div class="radio">
-			<input type="radio" name="shipaddress" value="${address.id}"> <p> ${address.name}<br/>
-      		${address.address1}
-      		<br/>${address.address2}
-      		<br/>${address.landmark}
-      		 <p>${address.city} &nbsp; ${address.state}
-      		 <br/> Pincode : ${address.pincode}	
-      		 </p>
-      		 </div>		
-			</c:forEach>
-			
-			 <button type="submit" class="btn btn-warning">Deliver to this Address</button>
+			<div class="col-md-4 col-xs-4">
+										
+						<div class="radio">
+						<input type="radio" name="shipaddress" value="${address.id}"> <p> ${address.name}<br/>
+			      		${address.address1}
+			      		<br/>${address.address2}
+			      		<br/>${address.landmark}
+			      		 <p>${address.city} &nbsp; ${address.state}
+			      		 <br/> Pincode : ${address.pincode}	
+			      		 </p>
+			      		 </div>	
+			    
+      		 </div>	
+      		 </c:forEach>
+			</div>
+			<br><br>
+			<div class="text-center"> 
+			 <button type="submit" class="btn btn-warning">Deliver to Selected Address</button>
+			 </div>
 	</form>
 </div>
-</div>
+
 <div class="container">
-<h4>Add a new Address :</h4>
+<h3>Add a new Address :</h3>
+<div class="row jumbotron">
 	<form:form commandName="address" action="saveShippingAddress" method="post">
 		<div class="form-group row">
 		<div class= "col-xs-6">
@@ -86,7 +95,7 @@
 		  <div class="form-group row">
 			<div class="col-xs-6">
 		    <label for="pincode"> Pincode:   </label>
-		    <form:input  class="form-control" name="pincode"  path = "pincode" required="required"/>
+		    <form:input  class="form-control" name="pincode"  path = "pincode" placeholder="Enter pincode" required="required"/>
 		    </div>
 		 </div>
 		 
@@ -94,7 +103,7 @@
 			<div class="col-xs-6">
 		    <label for="phone"> Alternate Mobile: 
 									(optional)   </label>
-		    <form:input  class="form-control" name="phone"  path = "phone" />
+		    <form:input  class="form-control" name="phone"  path = "phone" placeholder="Enter Mobile No"/>
 		    </div>
 		 </div>
 		 
@@ -116,11 +125,11 @@
 						</form:select>
 		    </div>
 		 </div>
-		 
+		 <br>
 		 <div class="form-group row">
 			<div class="col-xs-6">
 		    <div class="clearfix">
-		      <button type="submit" class="btn btn-success">Save & Deliver Here</button>
+		      <button type="submit" class="btn btn-success">Save And Deliver Here</button>
 		      <button type="reset"  class="btn btn-danger">Cancel</button>		     
 		    </div>
 		    </div>
@@ -128,7 +137,7 @@
 		 
 	</form:form>
 	</div>
-
+</div>
 </body>
 <jsp:include page="footer.jsp" /> 
 </html>

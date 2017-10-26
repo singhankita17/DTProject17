@@ -22,11 +22,15 @@
 </style>
 </head>
 <body>
-	<jsp:include page="header.jsp" /> 
+	<jsp:include page="headercart.jsp" /> 
 
 	<form:form commandName="user" action="savesignup" method="post">	
 		  <div class="container">
 		  <p><font color="red">${errorMessage}</font></p>
+		  
+		  <h3>New to Yourstyle ? SignUp</h3>
+		  <hr>
+		  <br>
 		  <div class="form-group row">
 			<div class="col-xs-6">
 		  	<label for="firstName">First Name: </label>
@@ -75,7 +79,7 @@
 		    </div>
 		    </div>
 		    <br/>
-		    <p>By creating an account you agree to our <a href="#">Terms and Privacy</a>.</p>
+		    <p>By creating an account you agree to our <a href="privacy">Terms and Privacy</a>.</p>
 			<br/>
 			<div class="form-group row">
 				 <div class="col-xs-6">

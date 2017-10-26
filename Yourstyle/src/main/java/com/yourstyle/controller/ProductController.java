@@ -179,4 +179,12 @@ public class ProductController {
 		return "productDetailPage";
 	}
 	
+	@RequestMapping("searchProduct")
+	public String showProductBasedOnSearch(@RequestParam("searchString")String searchString,Model model,RedirectAttributes attributes){
+		log.info("showProductBasedOnSearch : Search Product which match the given string");
+		System.out.println("In Product search "+searchString);
+		List<Product> products = productDao.getProductBySearchText(searchString);
+		attributes.addFlashAttribute("products", products);
+		return "redirect:home";
+	}
 }

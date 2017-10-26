@@ -10,8 +10,6 @@ public interface UserDao {
 	
 	public User getUserById(int userId);
 	
-	public boolean deleteUserById(int userId);
-	
 	public User getUserByEmail(String email);
 	
 	public List<User> getAllUsers();
