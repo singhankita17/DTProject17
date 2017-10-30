@@ -19,5 +19,6 @@ public interface ProductDao {
 	
 	public List<Product> getProductByBrand(String brandName);
 	
-	public List<Product> getProductBySearchText(String searchString);
+	public List<Product> getProductBySearchText(String[] searchString);	
+	
 }

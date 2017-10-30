@@ -2,15 +2,26 @@ package com.yourstyle.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+/*import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.yourstyle.model.Address;
 import com.yourstyle.model.Product;
 
 @Repository
@@ -85,11 +96,11 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Transactional
 	public List<Product> getProductByBrand(String brandName) {
-		String queryString = "from Product where brandName = :brandName";
+		String queryString = "from Product where lower(brandName) = :brandName";
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		List<Product> products = session.createQuery(queryString,Product.class).setParameter("brandName", brandName).list();
+		List<Product> products = session.createQuery(queryString,Product.class).setParameter("brandName", brandName.toLowerCase()).list();
 		session.getTransaction().commit();
 		session.close();
 		
@@ -97,9 +108,14 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Transactional
-	public List<Product> getProductBySearchText(String searchString) {
-	    
-		String queryString = "from Product where lower(productName) like '%"+searchString.toLowerCase()+"%' or lower(productDesc) like '%"+searchString.toLowerCase()+"%'";
+	public List<Product> getProductBySearchText(String[] searchString) {
+		
+		String queryString = "from Product where (lower(productName) like '%"+searchString[0].toLowerCase()+"%' or lower(productDesc) like '%"+searchString[0].toLowerCase()+"%')";
+	   
+		for(int i=1;i<searchString.length;i++){
+			
+			queryString += " or (lower(productName) like '%"+searchString[i].toLowerCase()+"%' or lower(productDesc) like '%"+searchString[i].toLowerCase()+"%')";
+		}
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
@@ -108,6 +124,47 @@ public class ProductDaoImpl implements ProductDao {
 		session.close();
 		
 		return products;
-	}
-
+		
+		/*Session session = sessionFactory.getCurrentSession();
+		log.info("ProductDaoImpl : search Products by search criteria --");
+		CriteriaBuilder cb =  session.getCriteriaBuilder();
+		CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+		
+		
+		Root<Product> addressRoot  = cq.from(Product.class);
+		ParameterExpression<Integer> personId = cb.parameter(Integer.class);
+		
+		Expression<String> path = addressRoot.get("productName");
+		Expression<String> param = cb.parameter(String.class);
+		
+		Expression<String> path1 = addressRoot.get("productDesc");
+		Expression<String> param1 = cb.parameter(String.class);
+		
+		Predicate p = cb.or(cb.like(cb.lower(path), "%"+searchString[0]+"%"),cb.like(cb.lower(path1), "%"+searchString[0]+"%"));
+		Predicate p1[] = new Predicate[10];
+		Predicate pFinal;
+		for(int i=1; i<searchString.length; i++){
+			p1[i] = cb.or(p,cb.or(cb.like(cb.lower(path), "%"+searchString[i]+"%"),cb.like(cb.lower(path1), "%"+searchString[i]+"%")));
+			pFinal=cb.or()
+		}
+		if(searchString.length==1){
+			cq.select(addressRoot).where(p);
+		}else if(searchString.length > 1){
+			cq.select(addressRoot).where(p1);
+		}
+		
+		
+		Query query = session.createQuery(cq);
+		
+		//SuppressWarnings(value="unchecked")
+		List<Product> results = (List<Product>) query.getResultList();
+		if(results.iterator().hasNext()){
+		
+			System.out.println("value retrieved");
+		}
+		return results;*/
+	
+		
+	}	
+	
 }

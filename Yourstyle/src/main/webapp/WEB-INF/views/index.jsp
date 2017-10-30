@@ -15,12 +15,18 @@
 </head>
 <jsp:include page="header.jsp" /> 
 <body>
-		<!-- 	<div class="col-sm-1">
+
+			<c:set var="slider1" value="Revlon"></c:set>
+			<c:set var="slider2" value="tresemme"></c:set>
+			<c:set var="slider3" value="colorbar"></c:set>
+			<c:set var="slider4" value="vaseline"></c:set>
+
+			<div class="col-sm-1">
 			 </div>
 			 <div class="col-sm-10">
 			 	
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			    Indicators
+			   <!--  Indicators -->
 			    <ol class="carousel-indicators">
 			      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 			      <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -28,10 +34,12 @@
 			      <li data-target="#myCarousel" data-slide-to="3"></li>
 			    </ol>
 			
-			    Wrapper for slides
+			   <!--  Wrapper for slides -->
 			    <div class="carousel-inner" role="listbox">
 			      <div class="item active">
+			      <a href="${pageContext.request.contextPath}/searchProductByName/${slider1}">
 			        <img src="resources/images/revlon_desktop_slider.jpg" alt="Image">
+			       </a>
 			        <div class="carousel-caption">
 			          <h3></h3>
 			          <p></p>
@@ -39,7 +47,9 @@
 			      </div>
 			
 			      <div class="item">
+			       <a href="searchProductByName/${slider2}">
 			        <img src="resources/images/tresemme_desktop_slider.jpg" alt="Image">
+			        </a>
 			        <div class="carousel-caption">
 			          <h3></h3>
 			          <p></p>
@@ -47,7 +57,9 @@
 			      </div>
 			      
 			       <div class="item">
+			        <a href="searchProductByName/${slider3}">
 			        <img src="resources/images/colorbar_desktop_slider.jpg" alt="Image">
+			        </a>
 			        <div class="carousel-caption">
 			          <h3></h3>
 			          <p></p>
@@ -55,7 +67,9 @@
 			      </div>
 			      
 			       <div class="item">
+			        <a href="searchProductByName/${slider4}">
 			        <img src="resources/images/vaseline_desktop_slider.jpg" alt="Image">
+			        </a>
 			        <div class="carousel-caption">
 			          <h3></h3>
 			          <p></p>
@@ -63,7 +77,7 @@
 			      </div>
 			    </div>
 			
-			    Left and right controls
+			   <!--  Left and right controls -->
 			    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
 			      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 			      <span class="sr-only">Previous</span>
@@ -122,7 +136,7 @@
 			      </div>
 			    </div>
 			  </div>
-			</div><br> -->
+			</div><br>
 
 	<jsp:include page="footer.jsp" /> 
 </body>

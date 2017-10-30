@@ -16,7 +16,7 @@
 </head>
 <jsp:include page="header.jsp" /> 
 <body>
-<div class="container">
+<div  class="container">
 <c:if test="${not empty error}">
 	    	<h4> <font size="2px" color="red">${error} </font></h4>
 	</c:if>
@@ -26,33 +26,54 @@
 	<br>
 	<br>
 <div class = "row">
-      <div class = "col-xs-6">
+      <div class = "col-xs-4">
       	<img id="productImg" src="<c:url value="${pageContext.request.pathInfo}/resources/images/${product.id}.jpg"/>" class="img-thumbnail"/>
       	<div id="myModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption"></div>
-</div>
+			  <span class="close">&times;</span>
+			  <img class="modal-content" id="img01">
+			  <div id="caption">${product.productName}</div>
+		</div>
       	<p>${product.productName}</p>
  
       </div>
-      <div class = "col-xs-6">
-      <div class ="jumbotron">
+      <div class = "col-xs-5 product_content">
       <form action="${pageContext.request.contextPath}/addToCart/${product.id}">
+      <h4>Product Id: <span>${product.id}</span></h4>
+      <div class="ratings">
+                  <p>
+                    <span class="fa fa-star-o"></span>
+                    <span class="fa fa-star-o"></span>
+                    <span class="fa fa-star-o"></span>
+                    <span class="fa fa-star-o"></span>
+                    <span class="fa fa-star-o"></span>
+                  </p>
+       </div>
+       
+        <p><strong>${product.brandName}</strong></p>
+      <div  class="space-ten"></div>
       <p>${product.productDesc}</p>
-      <p>${product.price}</p>
-      <p>${product.brandName}</p>
-      <input type="text" id="quantityToAdd" name="quantityToAdd" maxlength ="5" value="1" required>
-      <c:choose>
+        <c:if test="${not product.onSale}">
+        <h3 class="cost"><span class="fa fa-inr"></span>${product.price} </h3>
+        </c:if>
+        <c:if test="${product.onSale eq true}">
+        <h3 class="cost"><span class="fa fa-inr"></span>${product.salePrice} <small class="pre-cost"><span class="glyphicon glyphicon-usd"></span>${product.price} </small></h3>
+        </c:if>
+     
+       <div class="col-md-4">
+      <input type="number" id="quantityToAdd" name="quantityToAdd" value="1" class="form-control" size="5" required>
+      </div>
+      <div class="space-ten"></div>
+      <div class="col-md-4">
+      <c:choose>     
       <c:when test="${product.inStock eq true}"> Available in Stock</c:when>
       <c:when test="${not product.inStock}"> Out Of Stock</c:when>
       </c:choose>
+      </div>
       <br><br>
-      	<button class="btn btn-primary">ADD TO CART<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> </button>
+      	<button id="addbtn" class="btn btn-primary"> <span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;Add To Cart </button>
       </form>
       </div>
       
-      </div>
    </div>
 </div>
 <script>
@@ -76,6 +97,7 @@ var span = document.getElementsByClassName("close")[0];
 span.onclick = function() { 
     modal.style.display = "none";
 }
+
 </script>
 
 </body>

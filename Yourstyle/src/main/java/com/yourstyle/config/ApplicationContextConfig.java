@@ -50,7 +50,7 @@ public class ApplicationContextConfig {
 			Properties properties = new Properties();
 			properties.put("hibernate.show_sql", "true");
 			properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-			properties.put("hibernate.hbm2ddl.auto", "update");
+			properties.put("hibernate.hbm2ddl.auto", "update");			
 			System.out.println("Setting Hibernate Properties");
 			
 			return properties;

@@ -9,6 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/*import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;*/
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,11 +21,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Table
 @Component
 public class Product {
-
+	
+	
 		@Id
 		@GeneratedValue
 		private int id;
 		
+		@Column(name = "productName", nullable = true, length = 2000)
 		private String productName;
 		
 		@Column(name = "productDesc", nullable = true, length = 2000)

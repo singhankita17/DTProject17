@@ -23,12 +23,12 @@
 				<h4>
 				<strong>
 			     <c:choose>
-			     	<c:when test="${product.id==0}">  Add Product </c:when>
-			     	<c:when test="${!empty product.id}">Update Product <br> <br>Product Id: <c:out value="${product.id}"/></c:when>
+			     	<c:when test="${product.id==0}">  Add New Product </c:when>
+			     	<c:when test="${!empty product.id}">Update Product with Id: <c:out value="${product.id}"/></c:when>
 			     </c:choose>
 			     </strong>
 			     </h4>
-			    		     
+			    <hr>		     
 				<div class="form-group row">
 				 <div class="col-xs-4">
 				   <c:if test="${product.id != 0}">

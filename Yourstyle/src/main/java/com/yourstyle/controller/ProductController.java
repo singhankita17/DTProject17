@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -92,13 +93,13 @@ public class ProductController {
 	private String uploadFile(MultipartFile fileDetail, int productId) throws IOException {
 		
 		log.info("uploadFile : Upload file to the server");
-		String UPLOAD_DIRECTORY = "wtpwebapps/Yourstyle/resources/images";
+		String UPLOAD_DIRECTORY = "C:\\Anks\\DTProject\\Yourstyle\\src\\main\\webapp\\resources\\images";
 		
 		log.info("uploadFile : UPLOAD_DIRECTORY = "+UPLOAD_DIRECTORY);
-		String rootPath = System.getProperty("catalina.base");
+		/*String rootPath = System.getProperty("catalina.base");
 		log.info("uploadFile : rootPath = "+rootPath);
-		File dir = new File(rootPath+File.separator+UPLOAD_DIRECTORY);
-		
+		File dir = new File(rootPath+File.separator+UPLOAD_DIRECTORY);*/
+		File dir = new File(UPLOAD_DIRECTORY);
 		
 		String filename = String.valueOf(productId)+".jpg";
 		File fileToUpload = new File(dir.getAbsolutePath()+File.separator+filename);
@@ -141,9 +142,10 @@ public class ProductController {
 		log.info("removefile : Remove file from the server");
 		String UPLOAD_DIRECTORY = "wtpwebapps/Yourstyle/resources/images";
 		log.info("removefile : UPLOAD_DIRECTORY = "+UPLOAD_DIRECTORY);
-		String rootPath = System.getProperty("catalina.base");
+		/*String rootPath = System.getProperty("catalina.base");
 		log.info("removefile : rootPath = "+rootPath);
-		File dir = new File(rootPath+File.separator+UPLOAD_DIRECTORY);
+		File dir = new File(rootPath+File.separator+UPLOAD_DIRECTORY);*/
+		File dir = new File(UPLOAD_DIRECTORY);
 		
 		String filename = String.valueOf(productId)+".jpg";
 		File fileToRemove = new File(dir.getAbsolutePath()+File.separator+filename);
@@ -182,9 +184,27 @@ public class ProductController {
 	@RequestMapping("searchProduct")
 	public String showProductBasedOnSearch(@RequestParam("searchString")String searchString,Model model,RedirectAttributes attributes){
 		log.info("showProductBasedOnSearch : Search Product which match the given string");
+		
+		String searchArgs[] = searchString.split(" ");
+		for(int i=0;i<searchArgs.length;i++){
+			System.out.println( searchArgs);
+		}
+		
 		System.out.println("In Product search "+searchString);
-		List<Product> products = productDao.getProductBySearchText(searchString);
+		
+		List<Product> products = productDao.getProductBySearchText(searchArgs);
 		attributes.addFlashAttribute("products", products);
 		return "redirect:home";
 	}
+	
+	@RequestMapping(value="searchProductByName/{searchText}")
+	public String showProductByNameSearch(@PathVariable("searchText")String searchText,Model model){
+		System.out.println("Search page");
+		List<Product> products = productDao.getProductByBrand(searchText);
+		//attributes.addFlashAttribute("products", products);
+		model.addAttribute("products", products);
+		model.addAttribute("categoryList", categoryDao.getAllCategories());
+		return "searchHome";
+	}
+	
 }

@@ -50,15 +50,22 @@ public class UserController {
 		private static Logger log = LoggerFactory.getLogger(UserController.class);
 			
 		
-		@RequestMapping(value="/")
+		/*@RequestMapping(value="/")
 		public String showIndexPage(HttpSession session,Model model){
+			
+			try {
+				productDao.indexProducts();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			log.info("showIndexPage : Adding categoryList to session attribute");
 			//session.setAttribute("categoryList", categoryDao.getAllCategories());
 			model.addAttribute("categoryList", categoryDao.getAllCategories());
 			log.info("showIndexPage :  Redirecting to index page");
 			return "index";
-		}
+		}*/
 		
 		//Added error and logout parameters
 		@RequestMapping(value="login", method = RequestMethod.GET)
@@ -168,14 +175,7 @@ public class UserController {
 			model.addAttribute("categoryList", categoryDao.getAllCategories());
 			return "accessDenied";
 		}
-		
-		@RequestMapping(value="home", method = RequestMethod.GET)
-		public String showHomePage(Model m){
-			log.info("showHomePage : Redirect to homepage");
-			m.addAttribute("categoryList", categoryDao.getAllCategories());
-			return "home";
-		}
-		
+				
 		@RequestMapping(value="signup", method = RequestMethod.GET)
 		public String showSignUpPage(Model model){
 			log.info("showSignUpPage : Set user detail in model -- Redirect to signup");

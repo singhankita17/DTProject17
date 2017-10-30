@@ -32,7 +32,7 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
 				<sec:authorize access="hasRole('ROLE_USER')|| isAnonymous()">
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Shop Categories<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 				    <c:forEach items="${categoryList}" var="category">
 						<li><a href="${pageContext.request.contextPath}/fetchByCategory/${category.id}">${category.categoryName}</a></li>
