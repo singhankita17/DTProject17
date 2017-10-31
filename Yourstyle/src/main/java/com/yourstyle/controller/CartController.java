@@ -20,11 +20,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yourstyle.dao.AddressDao;
 import com.yourstyle.dao.CartDao;
+import com.yourstyle.dao.CategoryDao;
 import com.yourstyle.dao.OrderDao;
+import com.yourstyle.dao.PaymentDao;
 import com.yourstyle.dao.ProductDao;
 import com.yourstyle.model.Address;
 import com.yourstyle.model.Cart;
 import com.yourstyle.model.Orders;
+import com.yourstyle.model.Payment;
 import com.yourstyle.model.Product;
 import com.yourstyle.model.User;
 
@@ -46,6 +49,12 @@ public class CartController {
 	
 	@Autowired
 	OrderDao orderDao;
+	
+	@Autowired
+	PaymentDao paymentDao;
+	
+	@Autowired
+	CategoryDao categoryDao;
 	
 	@RequestMapping(value="addToCart/{id}",method = RequestMethod.GET)
 	public String addProductToCart(@PathVariable("id") int id,@RequestParam("quantityToAdd") int quantityToAdd, HttpSession session,Model model,RedirectAttributes attributes){
@@ -213,7 +222,7 @@ public class CartController {
 		attributes.addFlashAttribute("address", address);
 		attributes.addFlashAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		
-		return "redirect:/orderSummary";
+		return "redirect:/showpaymentPage";
 	}
 	
 	@RequestMapping(value="saveShippingAddress",method = RequestMethod.POST)
@@ -229,7 +238,7 @@ public class CartController {
 		attributes.addFlashAttribute("address", address);
 		attributes.addFlashAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		
-		return "redirect:/orderSummary";
+		return "redirect:/showpaymentPage";
 	}
 	
 	@RequestMapping(value="orderSummary",method = RequestMethod.GET)
@@ -237,7 +246,9 @@ public class CartController {
 		
 		User user = (User) session.getAttribute("user");
 		Address address = (Address) session.getAttribute("address");
+		String paymentChoice = (String) session.getAttribute("paymentMethod");
 		model.addAttribute("address", address);
+		model.addAttribute("paymentMethod", paymentChoice);
 		model.addAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		
 		return "orderSummary";
@@ -291,6 +302,44 @@ public class CartController {
 		cartDao.updateCartStatus(user.getId(), statusValue);
 		
 		return "acknowledgement";
+	}
+	
+	@RequestMapping(value="showpaymentPage")
+	public String showPaymentPage(@ModelAttribute("payment") Payment payment,BindingResult result,HttpSession session,Model model){
+		User user = (User) session.getAttribute("user");
+		Address address = (Address) session.getAttribute("address");
+		model.addAttribute("address", address);
+		model.addAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
+		
+		return "paymentPage";
+	}
+	
+	@RequestMapping(value="selectPaymentMethod")
+	public String selectPaymentMethod(@ModelAttribute("payment") Payment payment,BindingResult result,HttpSession session,Model m,RedirectAttributes attributes){
+		User user = (User) session.getAttribute("user");
+		String paymentChoice = "";
+		if(payment.getPaymentMethod().equals("creditcard")){
+			paymentChoice = "Credit Card";
+		}else if(payment.getPaymentMethod().equals("debitcard")){
+			paymentChoice = "Debit Card";
+		}else if(payment.getPaymentMethod().equals("netbanking")){
+			paymentChoice = "NetBanking";
+		}else if(payment.getPaymentMethod().equals("cod")){
+			paymentChoice = "Cash On Delivery";
+		}else{
+			paymentChoice = "No payment option selected";
+		}
+		
+		double totalAmount = cartDao.getCartTotal(user.getId());
+		payment.setUserId(user.getId());
+		payment.setTotalAmount(totalAmount);
+		paymentDao.savePaymentInfo(payment);
+		
+		session.setAttribute("paymentMethod", paymentChoice);
+		attributes.addFlashAttribute("payment", payment);
+		attributes.addFlashAttribute("cartTotalAmount", totalAmount);
+		
+		return "redirect:/orderSummary";
 	}
 
 }
