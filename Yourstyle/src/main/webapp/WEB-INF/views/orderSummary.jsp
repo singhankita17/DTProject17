@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="resources/css/Pretty-Footer.css">
+ <link rel="stylesheet" href="resources/css/PageDisplay.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -16,7 +17,8 @@
 </head>
 <jsp:include page="headercart.jsp" /> 
 <body>
-<div class="container">
+<div id="wrap">
+<div id="main" class="container clear-top">
 <div class = "row">
       <div class = "col-xs-8 jumbotron">
       	<div class = "col-xs-5">
@@ -34,7 +36,7 @@
       	</div>
       	<div class = "col-xs-4">
       	 <p>Payment Method</p>
-      	 <br>Cash on Delivery
+      	 <br>${sessionScope.paymentMethod}
       	</div>
       </div>
       
@@ -43,14 +45,15 @@
       	 <div class ="jumbotron">
       	 <a class="btn btn-warning btn-block" href="${pageContext.request.contextPath}/processOrder">Place Order</a><br><br/>
       	 <p>Order Summary</p>
-      	 <h5> Items Subtotal : ${cartTotalAmount}</h5>
-      	 <h5> Delivery Charges: 50.0 </h5>
+      	 <h5> Items Subtotal :<span class="fa fa-inr"></span> ${cartTotalAmount}</h5>
+      	 <h5> Delivery Charges:<span class="fa fa-inr"></span>   50.0 </h5>
       	 <hr/>
       	 <c:set var="ordertot" value="${cartTotalAmount + 50}"></c:set>
-      	 <p>OrderTotal: ${ordertot}</p>
+      	 <p>OrderTotal: <span class="fa fa-inr"></span> ${ordertot}</p>
       
       	 </div>
       </div>
+  </div>
   </div>
   </div>
 </body>

@@ -66,4 +66,9 @@ public class HomeController {
 	public String showPrivacyPolicy(){
 		return "privacypolicy";
 	}
+	
+	@RequestMapping(value="contactus")
+	public String showContactUsPage(){
+		return "contactUs";
+	}
 }

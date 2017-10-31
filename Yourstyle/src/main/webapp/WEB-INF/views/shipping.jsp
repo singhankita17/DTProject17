@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="resources/css/Pretty-Footer.css">
+<link rel="stylesheet" href="resources/css/PageDisplay.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -16,7 +17,8 @@
 </head>
 <jsp:include page="headercart.jsp" /> 
 <body>
-<div class="container">
+<div id="wrap">
+<div id="main" class="container clear-top">
 
 	<form  action="selectShippingAddress" method="post">
 			<h3>Select a delivery Address:</h3><br>
@@ -137,6 +139,7 @@
 		 
 	</form:form>
 	</div>
+</div>
 </div>
 </body>
 <jsp:include page="footer.jsp" /> 

@@ -24,7 +24,7 @@ footer{
 }
 
 .footer-navigation h3 span{	
-	color: #5383d3;
+	color: #FF3393;
 }
 
 .footer-navigation p.links a{
@@ -71,7 +71,7 @@ footer{
 span.new-line-span{
 	display: block;
 	font-weight: normal;
-	font-size:  14px;
+	font-size:  12px;
 	line-height: 2;
 }
 

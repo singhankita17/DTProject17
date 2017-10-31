@@ -44,13 +44,13 @@ We may disclose personal information to third parties. This disclosure may be re
 We may disclose personal information if required to do so by law or in the good faith belief that such disclosure is reasonably necessary to respond to subpoenas, court orders, or other legal process. We may disclose personal information to law enforcement offices, third party rights owners, or others in the good faith belief that such disclosure is reasonably necessary to: enforce our Terms or Privacy Policy; respond to claims that an advertisement, posting or other content violates the rights of a third party; or protect the rights, property or personal safety of our users or the general public.
 We and our affiliates will share / sell some or all of your personal information with another business entity should we (or our assets) plan to merge with, or be acquired by that business entity, or re-organization, amalgamation, restructuring of business. Should such a transaction occur that other business entity (or the new combined entity) will be required to follow this privacy policy with respect to your personal information.</p>
 <h4>4. Links to Other Sites</h4>
-<p>Our Website links to other websites that may collect personally identifiable information about you. Yourstyle.com is not responsible for the privacy practices or the content of those linked websites.</p>
+<p>Our Website links to other websites that may collect personally identifiable information about you. Yourstyle.in is not responsible for the privacy practices or the content of those linked websites.</p>
 <h4>5. Security Precautions</h4>
 <p>Our Website has stringent security measures in place to protect the loss, misuse, and alteration of the information under our control. Whenever you change or access your account information, we offer the use of a secure server. Once your information is in our possession we adhere to strict security guidelines, protecting it against unauthorized access.</p>
 <h4>6. Choice/Opt-Out</h4>
 <p>We provide all users with the opportunity to opt-out of receiving non-essential (promotional, marketing-related) communications from us on behalf of our partners, and from us in general, after setting up an account.
-If you want to remove your contact information from all Yourstyle.com lists and newsletters, please visit unsubscribe</p>
-<h4>7. Advertisements on Yourstyle.com</h4>
+If you want to remove your contact information from all Yourstyle.in lists and newsletters, please visit unsubscribe</p>
+<h4>7. Advertisements on Yourstyle.in</h4>
 <p>We use third-party advertising companies to serve ads when you visit our Website. These companies may use information (not including your name, address, email address, or telephone number) about your visits to this and other websites in order to provide advertisements about goods and services of interest to you.</p>
 <h4>8. Your Consent</h4>
 <p>By using the Website and/ or by providing your information, you consent to the collection and use of the information you disclose on the Website in accordance with this Privacy Policy, including but not limited to Your consent for sharing your information as per this privacy policy.

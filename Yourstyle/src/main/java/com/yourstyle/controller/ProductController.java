@@ -200,11 +200,21 @@ public class ProductController {
 	@RequestMapping(value="searchProductByName/{searchText}")
 	public String showProductByNameSearch(@PathVariable("searchText")String searchText,Model model){
 		System.out.println("Search page");
-		List<Product> products = productDao.getProductByBrand(searchText);
+		List<Product> products = productDao.getAllProductsByName(searchText);
 		//attributes.addFlashAttribute("products", products);
 		model.addAttribute("products", products);
 		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "searchHome";
+	}
+	
+	@RequestMapping(value="searchProductByBrand/{searchText}")
+	public String showProductByBrandName(@PathVariable("searchText")String searchText,Model model){
+			System.out.println("Brand Search page");
+			List<Product> products = productDao.getProductByBrand(searchText);
+			model.addAttribute("products", products);
+			model.addAttribute("categoryList", categoryDao.getAllCategories());
+			return "searchHome";
+		
 	}
 	
 }

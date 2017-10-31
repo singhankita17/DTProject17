@@ -76,11 +76,13 @@
 	<c:forEach items="${products}" var="product" varStatus="rowCount">     
         	<div class="col-md-4 col-xs-4">        
               <div class="thumbnail">
+              <a href="productDetail/${product.id}">
                <img src="resources/images/${product.id}.jpg" alt="" class="img-responsive"  style="max-height:220px">
+               </a>
                 <div class="caption">
                 <h4><a href="productDetail/${product.id}"><c:out value="${product.productName}"></c:out></a></h4>
                 <div  class="space-ten"></div>
-                  <h4 class="center-block">Rs. <c:out value="${product.price}"></c:out></h4>
+                  <h4 class="center-block"><span class="fa fa-inr"></span> <c:out value="${product.price}"></c:out></h4>
                    <div  class="space-ten"></div>
                 <%--   <p><c:out value="${product.productDesc}"></c:out></p>
  --%>                </div>
@@ -97,25 +99,26 @@
                 <div  class="space-ten"></div>
                
                 <div class="btn-ground text-center">
-                    <button type="button" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+                    <a href="productDetail/${product.id}" class="btn btn-primary"> Shop Now &nbsp;<i class="fa fa-caret-right"></i></a>
             		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button>
                 </div>
             <!-- Modal Class declaration -->
+            <c:set var="prod" value="${product}"></c:set>
             <div class="modal fade product_view" id="product_view">
       <div class="modal-dialog">
         <div class="modal-content">
        
             <div class="modal-header">
                 <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                <h3 class="modal-title">${product.productName}</h3>
+                <h3 class="modal-title">${prod.productName}</h3>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6 product_img">
-                        <img src="resources/images/${product.id}.jpg" class="img-responsive">
+                        <img src="resources/images/${prod.id}.jpg" class="img-responsive">
                     </div>
                     <div class="col-md-6 product_content">
-                        <h4>Product Id: <span>${product.id}</span></h4>
+                        <h4>Product Id: <span>${prod.id}</span></h4>
                         <div class="rating">
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
@@ -124,12 +127,12 @@
                             <span class="glyphicon glyphicon-star"></span>
                             (10 reviews)
                         </div>
-                        <p>${product.productDesc}</p>
-                        <c:if test="${not product.onSale}">
-                        <h3 class="cost"><span class="fa fa-inr"></span>${product.price} </h3>
+                        <p>${prod.productDesc}</p>
+                        <c:if test="${not prod.onSale}">
+                        <h3 class="cost"><span class="fa fa-inr"></span>${prod.price} </h3>
                         </c:if>
-                        <c:if test="${product.onSale eq true}">
-                        <h3 class="cost"><span class="fa fa-inr"></span>${product.salePrice} <small class="pre-cost"><span class="glyphicon glyphicon-usd"></span>${product.price} </small></h3>
+                        <c:if test="${prod.onSale eq true}">
+                        <h3 class="cost"><span class="fa fa-inr"></span>${prod.salePrice} <small class="pre-cost"><span class="fa fa-inr"></span>${prod.price} </small></h3>
                         </c:if>
                         <div class="row">     
                             <div class="col-md-4 col-sm-12">

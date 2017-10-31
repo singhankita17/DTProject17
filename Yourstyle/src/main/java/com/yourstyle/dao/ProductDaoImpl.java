@@ -165,6 +165,32 @@ public class ProductDaoImpl implements ProductDao {
 		return results;*/
 	
 		
+	}
+
+	@Override
+	public List<Product> getAllProductsByName(String searchString) {
+		
+		String searchArray[] = searchString.split(" ");
+		String queryString = "from Product";
+		if(searchArray.length == 0){
+		
+			queryString += " where (lower(productName) like '%"+searchString.toLowerCase()+"%' or lower(productDesc) like '%"+searchString.toLowerCase()+"%')";
+		}else{
+			
+			queryString += " where (lower(productName) like '%"+searchArray[0].toLowerCase()+"%' or lower(productDesc) like '%"+searchArray[0].toLowerCase()+"%')";
+			for(int i=1;i<searchArray.length;i++){
+				
+				queryString += " or (lower(productName) like '%"+searchArray[i].toLowerCase()+"%' or lower(productDesc) like '%"+searchArray[i].toLowerCase()+"%')";
+			}
+		}
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		List<Product> products = session.createQuery(queryString,Product.class).list();
+		session.getTransaction().commit();
+		session.close();
+		
+		return products;
 	}	
 	
 }

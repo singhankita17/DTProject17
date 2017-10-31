@@ -11,6 +11,7 @@
 <title>Sign Up Page</title>
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="resources/css/Pretty-Footer.css">
+  <link rel="stylesheet" href="resources/css/PageDisplay.css">
   <link rel="stylesheet" href="resources/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
    <link rel="stylesheet" href="resources/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js">
    <link rel="stylesheet" href="resources/lib/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
@@ -23,7 +24,8 @@
 </head>
 <body>
 	<jsp:include page="headercart.jsp" /> 
-
+<div id="wrap">
+<div id="main" class="container clear-top">
 	<form:form commandName="user" action="savesignup" method="post">	
 		  <div class="container">
 		  <p><font color="red">${errorMessage}</font></p>
@@ -92,7 +94,8 @@
 		  </div>
 	</form:form>
 	
-
+</div>
+</div>
 	<jsp:include page="footer.jsp" /> 
 
 </body>

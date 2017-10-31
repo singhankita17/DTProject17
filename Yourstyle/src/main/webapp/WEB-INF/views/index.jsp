@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>Online Site for all your beauty needs - YourStyle.Com</title>
+<title>Online Site for all your beauty needs - YourStyle.in</title>
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="resources/css/Pretty-Footer.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -47,7 +47,7 @@
 			      </div>
 			
 			      <div class="item">
-			       <a href="searchProductByName/${slider2}">
+			       <a href="${pageContext.request.contextPath}/searchProductByName/${slider2}">
 			        <img src="resources/images/tresemme_desktop_slider.jpg" alt="Image">
 			        </a>
 			        <div class="carousel-caption">
@@ -57,7 +57,7 @@
 			      </div>
 			      
 			       <div class="item">
-			        <a href="searchProductByName/${slider3}">
+			        <a href="${pageContext.request.contextPath}/searchProductByName/${slider3}">
 			        <img src="resources/images/colorbar_desktop_slider.jpg" alt="Image">
 			        </a>
 			        <div class="carousel-caption">
@@ -67,7 +67,7 @@
 			      </div>
 			      
 			       <div class="item">
-			        <a href="searchProductByName/${slider4}">
+			        <a href="${pageContext.request.contextPath}/searchProductByName/${slider4}">
 			        <img src="resources/images/vaseline_desktop_slider.jpg" alt="Image">
 			        </a>
 			        <div class="carousel-caption">
@@ -90,19 +90,29 @@
 			</div>
 			<div class="col-sm-1">
 			 </div>
+			 <c:set var="tab1" value="makeup eye lip"></c:set>
+			  <c:set var="tab2" value="lip"></c:set>
+			   <c:set var="tab3" value="hair body"></c:set>
+			 
 			<div class="container text-center">    
 			  <h3>What you can look for</h3><br>
 			  <div class="row">
 			    <div class="col-sm-4">
+			     <a href="${pageContext.request.contextPath}/searchProductByName/${tab1}">
 			      <img src="resources/images/Tile-7.jpg" class="img-responsive" style="width:100%" alt="Image">
+			      </a>
 			      <p>MakeUp and Applicators</p>
 			    </div>
 			    <div class="col-sm-4"> 
+			     <a href="${pageContext.request.contextPath}/searchProductByName/${tab2}">
 			      <img src="resources/images/Tile-8.jpg" class="img-responsive" style="width:100%" alt="Image">
+			     </a>
 			      <p>Lipsticks, Lipliners and Lip color</p>    
 			    </div>			    
 			     <div class="col-sm-4"> 
+			     <a href="${pageContext.request.contextPath}/searchProductByName/${tab3}">
 			      <img src="resources/images/Tile-3.jpg" class="img-responsive" style="width:100%" alt="Image">
+			     </a>
 			      <p>Hair and Body Care Products</p>    
 			    </div>
 			  </div>
@@ -113,26 +123,38 @@
 			  <div class="row">
 			    <div class="col-sm-4">
 			      <div class="well">
+			      <a href="${pageContext.request.contextPath}/searchProductByBrand/LAKME">
 			       <img src="resources/images/lakme_logo.png" class="img-responsive" style="width:100%" alt="Image">
+			       </a>
 			      </div>
 			      <div class="well">
+			      <a href="${pageContext.request.contextPath}/searchProductByBrand/L'oreal">
 			       <img src="resources/images/loreal_logo.png" class="img-responsive" style="width:100%" alt="Image">
+			       </a>
 			      </div>
 			    </div>
 			     <div class="col-sm-4">
 			      <div class="well">
+			       <a href="${pageContext.request.contextPath}/searchProductByBrand/maybelline">
 			       <img src="resources/images/maybelline_logo.png" class="img-responsive" style="width:100%" alt="Image">
+			       </a>
 			      </div>
 			      <div class="well">
+			      <a href="${pageContext.request.contextPath}/searchProductByBrand/neutrogena">
 			      <img src="resources/images/neutrogena_logo.png" class="img-responsive" style="width:100%" alt="Image">
+			      </a>
 			      </div>
 			    </div>
 			    <div class="col-sm-4">
 			      <div class="well">
+			      <a href="${pageContext.request.contextPath}/searchProductByBrand/thefaceshop">
 			       <img src="resources/images/thefaceshop_logo.png" class="img-responsive" style="width:100%" alt="Image">
+			       </a>
 			      </div>
 			      <div class="well">
+			      <a href="${pageContext.request.contextPath}/searchProductByBrand/nyx">
 			       <img src="resources/images/nyx_logo.png" class="img-responsive" style="width:100%" alt="Image">
+			       </a>
 			      </div>
 			    </div>
 			  </div>

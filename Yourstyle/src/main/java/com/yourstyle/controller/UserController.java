@@ -148,7 +148,7 @@ public class UserController {
 		
 		}
 		//Logout Handler
-		@RequestMapping(value="/logout", method=RequestMethod.GET)
+		/*@RequestMapping(value="/logout", method=RequestMethod.GET)
 		public String logout(HttpServletRequest request, HttpServletResponse response,HttpSession session){
 			log.info("logout :  Fetching Authentication from Security Context");
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -159,7 +159,7 @@ public class UserController {
 			}
 			
 			return "redirect:/login?logout";
-		}
+		}*/
 		
 		//loginfailed Handler
 		@RequestMapping(value="loginfailed", method=RequestMethod.GET)

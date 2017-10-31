@@ -21,4 +21,6 @@ public interface ProductDao {
 	
 	public List<Product> getProductBySearchText(String[] searchString);	
 	
+	public List<Product> getAllProductsByName(String searchString);	
+	
 }

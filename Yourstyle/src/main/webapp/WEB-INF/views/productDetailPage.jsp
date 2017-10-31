@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Pretty-Footer.css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/PageDisplay.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ImageDisplay.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -16,9 +17,10 @@
 </head>
 <jsp:include page="header.jsp" /> 
 <body>
-<div  class="container">
+<div id="wrap">
+<div id="main" class="container clear-top">
 <c:if test="${not empty error}">
-	    	<h4> <font size="2px" color="red">${error} </font></h4>
+	    	<h4> <font size="4px" color="red">${error} </font></h4>
 	</c:if>
 	<c:if test="${not empty message}">
 	    	<h4> <font size="2px" color="blue">${message} </font></h4>
@@ -56,7 +58,7 @@
         <h3 class="cost"><span class="fa fa-inr"></span>${product.price} </h3>
         </c:if>
         <c:if test="${product.onSale eq true}">
-        <h3 class="cost"><span class="fa fa-inr"></span>${product.salePrice} <small class="pre-cost"><span class="glyphicon glyphicon-usd"></span>${product.price} </small></h3>
+        <h3 class="cost"><span class="fa fa-inr"></span>${product.salePrice} <small class="pre-cost"><span class="fa fa-inr"></span>${product.price} </small></h3>
         </c:if>
      
        <div class="col-md-4">
@@ -73,7 +75,7 @@
       	<button id="addbtn" class="btn btn-primary"> <span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;Add To Cart </button>
       </form>
       </div>
-      
+      </div>
    </div>
 </div>
 <script>
