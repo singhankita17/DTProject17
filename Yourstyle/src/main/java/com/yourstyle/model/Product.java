@@ -20,8 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table
 @Component
-public class Product {
-	
+public class Product {	
 	
 		@Id
 		@GeneratedValue

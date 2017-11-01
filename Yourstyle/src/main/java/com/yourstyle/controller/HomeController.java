@@ -58,17 +58,26 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="terms")
-	public String showTermsOfUse(){
+	public String showTermsOfUse(Model m){
+		m.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "termsOfUse";
 	}
 	
 	@RequestMapping(value="privacy")
-	public String showPrivacyPolicy(){
+	public String showPrivacyPolicy(Model m){
+		m.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "privacypolicy";
 	}
 	
 	@RequestMapping(value="contactus")
-	public String showContactUsPage(){
+	public String showContactUsPage(Model m){
+		m.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "contactUs";
+	}
+	
+	@RequestMapping(value="adminHome")
+	public String showAdminHomePage(Model m){
+		m.addAttribute("categoryList", categoryDao.getAllCategories());		
+		return "adminHome";
 	}
 }

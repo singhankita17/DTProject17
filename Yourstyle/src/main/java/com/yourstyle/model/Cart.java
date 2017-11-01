@@ -2,9 +2,14 @@ package com.yourstyle.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -29,7 +34,7 @@ public class Cart {
 	private String status;
 	
 	private int userId;
-		
+			
 	private Timestamp createdTimestamp;
 	
 	private String createdBy;
@@ -126,6 +131,6 @@ public class Cart {
 	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
-	
+
 	
 }

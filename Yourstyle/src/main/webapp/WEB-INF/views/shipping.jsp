@@ -21,7 +21,8 @@
 <div id="main" class="container clear-top">
 
 	<form  action="selectShippingAddress" method="post">
-			<h3>Select a delivery Address:</h3><br>
+			<h3>Select a delivery Address:</h3>
+			<hr>
 			<div class="row">
 			<c:forEach var="address" items="${addressList}">
 			<div class="col-md-4 col-xs-4">

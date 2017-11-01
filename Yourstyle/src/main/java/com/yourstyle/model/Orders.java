@@ -1,9 +1,20 @@
 package com.yourstyle.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -15,7 +26,7 @@ public class Orders {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private int orderId;
 	
 	private int userId;
 	
@@ -25,8 +36,8 @@ public class Orders {
 	
 	private String orderStatus;
 	
-	private String paymentMethod;
-	
+	private int paymentId;
+		
 	private Timestamp createdTimestamp;
 	
 	private String createdBy;
@@ -34,13 +45,16 @@ public class Orders {
 	private Timestamp updatedTimestamp;
 	
 	private String updatedBy;
-
-	public int getId() {
-		return id;
+	
+	private int cartId;
+	
+	
+	public int getOrderId() {
+		return orderId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
 	public int getUserId() {
@@ -75,12 +89,12 @@ public class Orders {
 		this.orderStatus = orderStatus;
 	}
 
-	public String getPaymentMethod() {
-		return paymentMethod;
+	public int getPaymentId() {
+		return paymentId;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
+	public void setPaymentId(int paymentId) {
+		this.paymentId = paymentId;
 	}
 
 	public Timestamp getCreatedTimestamp() {
@@ -114,6 +128,14 @@ public class Orders {
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-		
+
+	public int getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(int cartId) {
+		this.cartId = cartId;
+	}
+	
 	
 }

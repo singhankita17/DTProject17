@@ -1,4 +1,4 @@
-package com.yourstyle.controller;
+/*package com.yourstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,3 +41,4 @@ public class AdminController {
 		m.addAttribute("productList", productDao.getAllProducts());
 	}
 }
+*/

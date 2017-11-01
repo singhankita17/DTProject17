@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yourstyle.dao.CategoryDao;
 import com.yourstyle.dao.ProductDao;
@@ -111,7 +112,7 @@ public class UserController {
 		}*/
 		
 		@RequestMapping(value = "/login_attributes")
-		public String login_session_attributes(HttpSession session,Model model) {
+		public String login_session_attributes(HttpSession session,Model model,RedirectAttributes attributes) {
 			log.info("login_attributes :  Fetching details from SecurityContextHolder --> email");
 			String email = SecurityContextHolder.getContext().getAuthentication().getName();
 			System.out.println("Email = "+email);
@@ -133,13 +134,16 @@ public class UserController {
 					     if (authority.getAuthority().equals(role)) 
 					     {
 					    	 model.addAttribute("supplierList",supplierDao.getAllSuppliers());
-					    	
+					    	 model.addAttribute("categoryList",categoryDao.getAllCategories());
 					    	 model.addAttribute("productList", productDao.getAllProducts());
-						 
+					    	 log.info("login_attributes :  Redirect to Admin home Page");
+					    	 
+					    	 return "adminHome";
 					     }
 					     model.addAttribute("categoryList",categoryDao.getAllCategories());
-					     log.info("login_attributes :  Redirect to home Page");
-					     return "home";
+					     log.info("login_attributes :  Redirect to user home Page");
+					     attributes.addFlashAttribute("products", productDao.getAllProducts());
+					     return "redirect:/home";
 					}
 					session.setAttribute("categoryList", categoryDao.getAllCategories());
 			}

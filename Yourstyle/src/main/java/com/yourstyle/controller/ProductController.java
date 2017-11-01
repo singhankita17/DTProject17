@@ -172,12 +172,14 @@ public class ProductController {
 		log.info("getProductById : Product fetched for display  based on product Id"+product.getId());
 		model.addAttribute("product", product);
 		//attributes.addFlashAttribute("product", product);
+		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "productDetailPage";
 	}
 	
 	@RequestMapping(value="productDetailPage", method = RequestMethod.GET)
 	public String showProductDetailPage(Model m){
 		log.info("showProductDetailPage : Redirect to ProductDetailPage");
+		m.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "productDetailPage";
 	}
 	

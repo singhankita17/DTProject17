@@ -36,7 +36,7 @@
       	</div>
       	<div class = "col-xs-4">
       	 <p>Payment Method</p>
-      	 <br>${sessionScope.paymentMethod}
+      	 <br>${paymentChoice}
       	</div>
       </div>
       
@@ -48,7 +48,7 @@
       	 <h5> Items Subtotal :<span class="fa fa-inr"></span> ${cartTotalAmount}</h5>
       	 <h5> Delivery Charges:<span class="fa fa-inr"></span>   50.0 </h5>
       	 <hr/>
-      	 <c:set var="ordertot" value="${cartTotalAmount + 50}"></c:set>
+      	 <c:set var="ordertot" value="${cartTotalAmount + 50.0}"></c:set>
       	 <p>OrderTotal: <span class="fa fa-inr"></span> ${ordertot}</p>
       
       	 </div>

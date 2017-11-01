@@ -1,6 +1,7 @@
 package com.yourstyle.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -125,7 +126,9 @@ public class CartController {
 	
 	@RequestMapping(value="goToCart",method = RequestMethod.GET)
 	public String viewCart(HttpSession session,Model model){
+		if(session != null){
 		User user = (User) session.getAttribute("user");
+		
 		List<Cart> cartList = cartDao.getCartByUserId(user.getId());
 		
 		model.addAttribute("productList", productDao.getAllProducts());
@@ -137,7 +140,11 @@ public class CartController {
 		}else{
 			model.addAttribute("EmptyCart", true);
 		}
-		
+		}else{
+			model.addAttribute("error", "User session invalid");
+		}
+			
+		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "CartPage";
 	}
 	
@@ -246,62 +253,72 @@ public class CartController {
 		
 		User user = (User) session.getAttribute("user");
 		Address address = (Address) session.getAttribute("address");
-		String paymentChoice = (String) session.getAttribute("paymentMethod");
+		Payment payment = (Payment) session.getAttribute("payment");
 		model.addAttribute("address", address);
-		model.addAttribute("paymentMethod", paymentChoice);
+		model.addAttribute("payment", payment);
 		model.addAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		
 		return "orderSummary";
 	}
 	
 	@RequestMapping(value="processOrder")
-	public String placeOrder(HttpSession session){
-		log.info("placeOrder : Processing order details");
-		Orders order=new Orders();
-		
+	public String placeOrder(HttpSession session, Model model){
+				
 		log.info("placeOrder : Set user attributes");
-		User user = (User) session.getAttribute("user");
-		
-		order.setUserId(user.getId());
+		User user = (User) session.getAttribute("user");		
 		
 		log.info("placeOrder : Set shipping address");
 		Address address = (Address) session.getAttribute("address");
 		
-		order.setShipAddressId(address.getId());
+		log.info("placeOrder : Set payment details");
+		Payment payment = (Payment) session.getAttribute("payment");
 		
+		log.info("placeOrder : Processing order details");	
 		List<Cart> cartItemsList = cartDao.getCartByUserId(user.getId());
-		
+				
 		double totalAmount = 0;
+		
 		log.info("placeOrder : update Total Order amount");
 		for(Cart cartItem:cartItemsList){
 			
 			totalAmount += cartItem.getProductPrice() * cartItem.getQuantityAdded();
 		}
-		order.setTotalAmount(totalAmount);
-		order.setOrderStatus("PROCESSED");		
-		order.setPaymentMethod("COD");	
-		order.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
-		order.setCreatedBy("SYSTEM");		
+				
 		
-		log.info("placeOrder : Save order details");
-		orderDao.saveOrUpdate(order);
 		
 		log.info("placeOrder : Update product Quantity");
 		for(Cart cartItem:cartItemsList){
 			
+			Orders order=new Orders();
+			order.setUserId(user.getId());
+			order.setShipAddressId(address.getId());
+			order.setPaymentId(payment.getId());
+			order.setTotalAmount(totalAmount);
+			order.setOrderStatus("PROCESSED");	
+			order.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
+			order.setCreatedBy("SYSTEM");
+			order.setCartId(cartItem.getId());
+			log.info("placeOrder : Save order details");
+			
+			orderDao.saveOrUpdate(order);
+						
 			Product product = productDao.getProductById(cartItem.getProductId());
 			int quantityRemaining = product.getQuantityAvailable() - cartItem.getQuantityAdded();
 			product.setQuantityAvailable(quantityRemaining);
 			if(quantityRemaining==0){
 				product.setInStock(false);
+			}else{
+				product.setInStock(true);
 			}
 			productDao.saveOrUpdate(product);
+			
+			log.info("placeOrder : Update Cart Status");
+			String statusValue = "INACTIVE";
+			cartItem.setStatus(statusValue);
+			cartDao.saveOrUpdate(cartItem);
 		}
-		log.info("placeOrder : Update Cart Status");
-		String statusValue = "INACTIVE";
-		cartDao.updateCartStatus(user.getId(), statusValue);
 		
-		return "acknowledgement";
+		return "redirect:showinvoice";
 	}
 	
 	@RequestMapping(value="showpaymentPage")
@@ -326,8 +343,6 @@ public class CartController {
 			paymentChoice = "NetBanking";
 		}else if(payment.getPaymentMethod().equals("cod")){
 			paymentChoice = "Cash On Delivery";
-		}else{
-			paymentChoice = "No payment option selected";
 		}
 		
 		double totalAmount = cartDao.getCartTotal(user.getId());
@@ -335,11 +350,39 @@ public class CartController {
 		payment.setTotalAmount(totalAmount);
 		paymentDao.savePaymentInfo(payment);
 		
-		session.setAttribute("paymentMethod", paymentChoice);
+		session.setAttribute("payment", payment);
 		attributes.addFlashAttribute("payment", payment);
+		attributes.addFlashAttribute("paymentChoice", paymentChoice);
 		attributes.addFlashAttribute("cartTotalAmount", totalAmount);
 		
 		return "redirect:/orderSummary";
+	}
+	
+	@RequestMapping(value="showinvoice")
+	public String showInvoiceAcknoledgement(HttpSession session,Model model){
+			
+		if(session != null){
+			
+			User user = (User) session.getAttribute("user");
+			
+			List<Orders> orderList = orderDao.getAllOrdersOfUser(user.getId());
+			List<Cart> cartList = new ArrayList<Cart>();
+			
+			for(Orders order:orderList){
+				
+				cartList.add(cartDao.getCartById(order.getCartId()));
+			}
+			
+		    model.addAttribute("cartList", cartList);
+		    model.addAttribute("productList", productDao.getAllProducts());
+		    model.addAttribute("categoryList", categoryDao.getAllCategories());
+		}
+		else{
+			
+			model.addAttribute("error", "No order detail found");
+			
+		}
+		return "acknowledgement";
 	}
 
 }

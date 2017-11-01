@@ -43,9 +43,9 @@
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="categoryPage"> Category </a></li>
-					<li><a href="productPage"> Product</a></li>
-					<li><a href="supplierPage"> Supplier</a></li>
+					<li><a href="${pageContext.request.contextPath}/categoryPage"> Category </a></li>
+					<li><a href="${pageContext.request.contextPath}/productPage"> Product</a></li>
+					<li><a href="${pageContext.request.contextPath}/supplierPage"> Supplier</a></li>
 				</ul>
 				</li>
 				</sec:authorize>

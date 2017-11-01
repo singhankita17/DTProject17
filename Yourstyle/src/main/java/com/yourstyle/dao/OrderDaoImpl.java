@@ -39,9 +39,9 @@ public class OrderDaoImpl implements OrderDao {
 	@Transactional
 	@Override
 	public Orders getOrderById(int orderId) {
-		Cart cart= (Cart) sessionFactory.getCurrentSession().createQuery("from Order where id = :orderId")
+		Orders order= (Orders) sessionFactory.getCurrentSession().createQuery("from Order where id = :orderId")
 				.setParameter("orderId", orderId).uniqueResult();
-		return null;
+		return order;
 	}
 
 	@Transactional
@@ -64,12 +64,15 @@ public class OrderDaoImpl implements OrderDao {
 			return false;
 		}
 	}
+	
 
+	@Transactional
 	@Override
 	public List<Orders> getAllOrdersOfUser(int userId) {
 		
-		List<Orders> orderList=  sessionFactory.getCurrentSession().createQuery("from Order where userId = :userId",Orders.class).setParameter("userId", userId).list();
+		List<Orders> orderList =  sessionFactory.getCurrentSession().createQuery("from Orders where userId = :userId and orderStatus = 'PROCESSED'",Orders.class).setParameter("userId", userId).list();
 		return orderList;
 	}
 
+	
 }

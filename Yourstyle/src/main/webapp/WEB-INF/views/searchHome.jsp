@@ -22,9 +22,11 @@
 	<c:forEach items="${products}" var="product" varStatus="rowCount">     
         	<div class="col-md-4 col-xs-4">        
               <div class="thumbnail">
+               <a href="${pageContext.request.contextPath}/productDetail/${product.id}">
                <img src="${pageContext.request.contextPath}/resources/images/${product.id}.jpg" alt="" class="img-responsive"  style="max-height:220px">
+               </a>
                 <div class="caption">
-                <h4><a href="productDetail/${product.id}"><c:out value="${product.productName}"></c:out></a></h4>
+                <h4><a href="${pageContext.request.contextPath}/productDetail/${product.id}"><c:out value="${product.productName}"></c:out></a></h4>
                 <div  class="space-ten"></div>
                   <h4 class="center-block"><span class="fa fa-inr"></span> <c:out value="${product.price}"></c:out></h4>
                    <div  class="space-ten"></div>
@@ -42,9 +44,9 @@
                 <div  class="space-ten"></div>
                
                 <div class="btn-ground text-center">
-                    <button type="button" class="btn btn-primary"> Shop Now &nbsp;<i class="fa fa-caret-right"></i></button>
-            		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button>
-                </div>
+                    <a href="${pageContext.request.contextPath}/productDetail/${product.id}" class="btn btn-primary"> Shop Now &nbsp;<i class="fa fa-caret-right"></i></a>
+            		<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button> -->
+             </div>
             <!-- Modal Class declaration -->
             <div class="modal fade product_view" id="product_view">
       <div class="modal-dialog">
@@ -106,6 +108,7 @@
             </div>
    </c:forEach>        
     </div>
+      <div class="space-ten"></div>
 </div>
 </div>
    
