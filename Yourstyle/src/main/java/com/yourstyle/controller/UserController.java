@@ -138,7 +138,7 @@ public class UserController {
 					    	 model.addAttribute("productList", productDao.getAllProducts());
 					    	 log.info("login_attributes :  Redirect to Admin home Page");
 					    	 
-					    	 return "adminHome";
+					    	 return "redirect:/adminHome";
 					     }
 					     model.addAttribute("categoryList",categoryDao.getAllCategories());
 					     log.info("login_attributes :  Redirect to user home Page");
@@ -189,7 +189,7 @@ public class UserController {
 		}
 		
 		@RequestMapping(value="savesignup", method = RequestMethod.POST)
-		public String saveSignUpPage(@Valid @ModelAttribute("user") User user, BindingResult result,ModelMap model,@RequestParam("passwordRepeat")String passwordRepeat){
+		public String saveSignUpPage(@Valid @ModelAttribute("user") User user, BindingResult result,ModelMap model,@RequestParam("passwordRepeat")String passwordRepeat,RedirectAttributes attributes){
 			
 			if(result.hasErrors()){
 				System.out.println(result.getAllErrors().toString());
@@ -197,7 +197,7 @@ public class UserController {
 			}else{
 			log.info("saveSignUpPage : Check if Password and confirm password are Same");
 			if(!user.getPassword().equals(passwordRepeat)){
-				model.addAttribute("errorMessage","Fields Password and Confirm Password do not match");
+				model.addAttribute("errorMessage","Fields Password and Repeat Password do not match");
 				return "signup";
 			}
 			
@@ -222,9 +222,9 @@ public class UserController {
 			log.info("saveSignUpPage : Save details of User");
 			userDao.saveOrUpdate(user);
 			
-			model.addAttribute("firstname", user.getFirstName()+" "+user.getLastName());
-			
-			return "home";
+			//model.addAttribute("firstname", user.getFirstName()+" "+user.getLastName());
+			  attributes.addFlashAttribute("products", productDao.getAllProducts());
+			return "redirect:/home";
 			}
 		}
 }

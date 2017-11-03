@@ -29,8 +29,16 @@
 </head>
 <jsp:include page="header.jsp" /> 
 <body>
-<div id="wrap">
-<div id="main" class="container clear-top">
+
+<c:if test="${not empty error}">
+			<div id="wrap">
+			<div id="main" class="container clear-top">
+	    			<%-- <h4 align="center"> <font color="blue">${error} </font></h4> --%>
+	    			<img src="${pageContext.request.contextPath}/resources/images/no_product_5.png" alt="Image" class="img-thumbnail">
+	    	</div>
+			</div>
+</c:if>
+<div class="container clear-top">
 <%-- <c:if test="${not empty products}"> --%>
 		<%-- <table class="table table-striped table-bordered" style="width:80%">
 			<thead>
@@ -164,7 +172,6 @@
             </div>
    </c:forEach>        
     </div>
-</div>
 </div>
    
 </body>

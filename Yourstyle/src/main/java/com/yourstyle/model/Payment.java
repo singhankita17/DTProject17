@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ public class Payment {
 	@GeneratedValue
 	private int id;
 	
+	@NotNull
 	private String paymentMethod;
 	
 	private long cardNumber;

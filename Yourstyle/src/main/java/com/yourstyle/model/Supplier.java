@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
@@ -23,8 +24,10 @@ public class Supplier {
 	@GeneratedValue
 	private int id;
 	
+	@NotNull
 	private String supplierName;
 	
+	@NotNull
 	private String supplierAddress;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "supplierId", cascade = CascadeType.ALL)

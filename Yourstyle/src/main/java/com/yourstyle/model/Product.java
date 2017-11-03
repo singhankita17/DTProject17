@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 /*import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
@@ -26,22 +27,30 @@ public class Product {
 		@GeneratedValue
 		private int id;
 		
-		@Column(name = "productName", nullable = true, length = 2000)
+		@NotNull
+		@Column(name = "productName", length = 2000)
 		private String productName;
 		
-		@Column(name = "productDesc", nullable = true, length = 2000)
+		@NotNull
+		@Column(name = "productDesc", length = 2000)
 		private String productDesc;
 		
+		@NotNull
 		private double price;
 		
+		@NotNull
 		private String brandName;
 		
+		@NotNull
 		private boolean inStock;
 		
+		@NotNull
 		private int quantityAvailable;
 		
+		@NotNull
 		private boolean onSale;
 		
+		@NotNull
 		private double salePrice;
 		
 		private Timestamp createdTimestamp;

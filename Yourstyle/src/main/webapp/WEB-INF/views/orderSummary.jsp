@@ -54,6 +54,67 @@
       	 </div>
       </div>
   </div>
+  
+  <div class="row">
+	 <div class="col-sm-12 col-md-10 col-md-offset-1">
+	 <table class="table table-hover table-condensed">
+	 <thead>
+			<tr>
+			<th>Product</th>
+			<th>Expected Delivery</th>
+			<th>Quantity</th>
+			<th class="text-center">Price</th>
+			<th class="text-center">Total</th>
+			
+			</tr>	
+		</thead>
+		<tbody>
+			<c:forEach items="${cartList}" var ="cart">
+			<tr>
+			 <td class="col-sm-8 col-md-6">
+			<div class="media">
+			 <a class="thumbnail pull-left" href="${pageContext.request.contextPath}/productDetail/${cart.productId}"><img class="media-object" src="<c:url value="/resources/images/${cart.productId}.jpg"/>" class="img-thumbnail" width="72px" height="72px"/></a>
+					
+			<div class="media-body">
+			<c:forEach items="${productList}" var="product">	
+				<c:if test="${product.id == cart.productId}">
+			<h4 class="media-heading"><a href="${pageContext.request.contextPath}/productDetail/${cart.productId}">${product.productName}</a></h4>
+                                <h5 class="media-heading"> by <a href="#">${product.brandName}</a></h5>
+                                <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                            </div>
+                        </div></td>
+                 </c:if>
+              </c:forEach>
+             <td class="col-sm-1 col-md-1">
+             With in 7 working days
+ 			 </td>
+			 <td class="col-sm-1 col-md-1" style="text-align: center">
+			
+			${cart.quantityAdded}
+			
+			</td>
+			 <td class="col-sm-1 col-md-1 text-center"></td>
+			 <td class="col-sm-1 col-md-1 text-center"></td>
+			
+				
+		</tr>
+		
+		</c:forEach>
+		<tr>
+			<td>  </td>
+			<td>  </td>
+			<td>  </td>
+			<td></td>
+			<td class="text-right"><h5><a class="btn btn-sm btn-warning"  href="${pageContext.request.contextPath}/goToCart"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Edit Order</a></h5></td>
+		</tr>
+		
+		
+		</tbody>
+		
+	</table>
+	
+		</div>
+	</div>
   </div>
   </div>
 </body>

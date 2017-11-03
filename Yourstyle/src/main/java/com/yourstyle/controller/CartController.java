@@ -145,6 +145,7 @@ public class CartController {
 		}
 			
 		model.addAttribute("categoryList", categoryDao.getAllCategories());
+		
 		return "CartPage";
 	}
 	

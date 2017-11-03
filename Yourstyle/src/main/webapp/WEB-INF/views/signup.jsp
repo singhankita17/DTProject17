@@ -52,7 +52,7 @@
 		<div class="form-group row">
 				 <div class="col-xs-6">			 
 		     <label for="phone">Mobile Number : </label>
-		     <form:input class="form-control" name="phone" placeholder="Enter Mobile Number" path = "phone" maxlength="10"/>
+		     <form:input class="form-control" name="phone" placeholder="Enter Mobile Number" path = "phone" maxlength="10" required="required"/>
 		     <form:errors path="phone" cssClass="error"/>
 		    </div>
 		    </div>
@@ -68,7 +68,7 @@
 		    <div class="form-group row">
 				 <div class="col-xs-6">
 		    <label for="password">Password: </label>
-		    <form:input type="password" class="form-control" path="password"  placeholder="Enter Password" />
+		    <form:input type="password" class="form-control" path="password"  placeholder="Enter Password" required="required"/>
 		    <form:errors path="password" cssClass="error"/>
 		  
 		    </div>

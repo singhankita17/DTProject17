@@ -6,7 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -18,26 +23,35 @@ public class Address {
 		@GeneratedValue
 		private int id;
 		
+		@NotNull
 		private String name;
 		
+		@NotNull
 		private String address1;
 		
+		@NotNull
 		private String address2;
 		
 		private String landmark;
 		
+		@NotNull
 		private String city;
 		
+		@NotNull
 		private String state;
 		
-		private int pincode;
+		@NotNull @Pattern(regexp="\\d{6}")
+		private String pincode;
 		
+		@Email
 		private String email;
 		
-		private long phone;
+		@Pattern(regexp="\\d{10}")
+		private String phone;
 		
 		private int personId;
 		
+		@NotNull
 		private String addressType;
 		
 		private Timestamp createdTimestamp;
@@ -96,11 +110,11 @@ public class Address {
 			this.state = state;
 		}
 
-		public int getPincode() {
+		public String getPincode() {
 			return pincode;
 		}
 
-		public void setPincode(int pincode) {
+		public void setPincode(String pincode) {
 			this.pincode = pincode;
 		}
 
@@ -112,11 +126,11 @@ public class Address {
 			this.email = email;
 		}
 
-		public long getPhone() {
+		public String getPhone() {
 			return phone;
 		}
 
-		public void setPhone(long phone) {
+		public void setPhone(String phone) {
 			this.phone = phone;
 		}
 

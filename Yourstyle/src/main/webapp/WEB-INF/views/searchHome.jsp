@@ -18,6 +18,11 @@
 <div id="wrap">
 <div id="main" class="container clear-top">
 
+<c:if test="${not empty error}">
+	    	<%-- <h4 align="center"> <font color="blue">${error} </font></h4> --%>
+	    	<img src="${pageContext.request.contextPath}/resources/images/no_product_5.png" alt="Image" class="img-thumbnail">
+	</c:if>
+
 	<div class="row">        
 	<c:forEach items="${products}" var="product" varStatus="rowCount">     
         	<div class="col-md-4 col-xs-4">        

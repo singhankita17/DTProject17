@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
@@ -23,8 +24,10 @@ public class Category {
 	@GeneratedValue
 	private int id;
 	
+	@NotNull
 	private String categoryName;
 	
+	@NotNull
 	private String categoryDescription;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "categoryId", cascade = CascadeType.ALL)

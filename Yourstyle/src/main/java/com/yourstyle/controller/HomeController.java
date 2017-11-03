@@ -54,6 +54,7 @@ public class HomeController {
 	public String showHomePage(Model m){
 		log.info("showHomePage : Redirect to homepage");
 		m.addAttribute("categoryList", categoryDao.getAllCategories());
+		m.addAttribute("products", productDao.getAllProducts());
 		return "home";
 	}
 
@@ -79,5 +80,11 @@ public class HomeController {
 	public String showAdminHomePage(Model m){
 		m.addAttribute("categoryList", categoryDao.getAllCategories());		
 		return "adminHome";
+	}
+	
+	@RequestMapping(value="about")
+	public String showAboutUs(Model m){
+		m.addAttribute("categoryList", categoryDao.getAllCategories());
+		return "AboutUs";
 	}
 }

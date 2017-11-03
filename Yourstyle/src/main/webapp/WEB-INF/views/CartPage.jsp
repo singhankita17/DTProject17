@@ -15,7 +15,7 @@
 <title>Cart Page</title>
 
 </head>
-<jsp:include page="header.jsp" /> 
+<jsp:include page="headercart.jsp" /> 
 <body>
 	<div id="wrap">
 <div id="main" class="container clear-top">
@@ -25,10 +25,11 @@
 	<table class="table table-hover table-condensed">
 	<c:choose>
 	<c:when test="${EmptyCart eq true}">
-			<div class="row" style="padding-top: 75px; padding-left: 350px;">
+			<div class="row" style="padding-top: 75px; padding-left: 120px;">
+			<h4 align="center"><font color="blue">Your Shopping Cart is Empty</font></h4>
 			<img src="${pageContext.request.contextPath}/resources/images/empty-cart_1.png" alt="Image" class="img-thumbnail">
 			<br><br>
-			<h4><font color="blue">Your Shopping Cart is Empty</font></h4>
+			
 			</div>
 	</c:when>
 	

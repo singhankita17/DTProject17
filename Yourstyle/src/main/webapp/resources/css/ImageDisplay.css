@@ -86,3 +86,8 @@
   .product_view .modal-dialog{max-width: 800px; width: 100%;}
         .pre-cost{text-decoration: line-through; color: #a5a5a5;}
         .space-ten{padding: 10px 0;}
+        
+ .menu-items{list-style-type:none;font-size:14px;display:inline-flex;margin-bottom:0;margin-top:20px}
+ li.active{border-bottom:3px solid silver;}
+  .menu-items{padding-left:0;}
+  ul > li{margin-right:25px;font-weight:lighter;cursor:pointer}

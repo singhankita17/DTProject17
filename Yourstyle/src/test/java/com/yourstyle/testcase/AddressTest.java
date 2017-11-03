@@ -1,4 +1,4 @@
-package com.yourstyle.testcase;
+/*package com.yourstyle.testcase;
 
 import static org.junit.Assert.*;
 
@@ -57,3 +57,4 @@ public class AddressTest {
 		assertEquals("CreateAddressTest",true,response);
 	}
 }
+*/

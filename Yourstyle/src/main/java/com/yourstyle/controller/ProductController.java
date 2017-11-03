@@ -161,8 +161,11 @@ public class ProductController {
 		log.info("fetchProductByCategory : Fetch product details -- based on given Category Id");
 		List<Product> products = productDao.getAllProductForCategory(id);
 		log.info("fetchProductByCategory : Product fetched for display  based on Category Id");
-		attributes.addFlashAttribute("products", products);
-		return "redirect:/home";
+		model.addAttribute("products", products);
+		if(products.isEmpty()){
+			model.addAttribute("error", "No product found for the search criteria");
+		}
+		return "searchHome";
 	}
 	
 	@RequestMapping(value="productDetail/{id}",method = RequestMethod.GET)
@@ -195,8 +198,11 @@ public class ProductController {
 		System.out.println("In Product search "+searchString);
 		
 		List<Product> products = productDao.getProductBySearchText(searchArgs);
-		attributes.addFlashAttribute("products", products);
-		return "redirect:home";
+		model.addAttribute("products", products);
+		if(products.isEmpty()){
+			model.addAttribute("error", "No product found for the search criteria");
+		}
+		return "searchHome";
 	}
 	
 	@RequestMapping(value="searchProductByName/{searchText}")
@@ -206,6 +212,9 @@ public class ProductController {
 		//attributes.addFlashAttribute("products", products);
 		model.addAttribute("products", products);
 		model.addAttribute("categoryList", categoryDao.getAllCategories());
+		if(products.isEmpty()){
+			model.addAttribute("error", "No product found for the search criteria");
+		}
 		return "searchHome";
 	}
 	
@@ -215,6 +224,9 @@ public class ProductController {
 			List<Product> products = productDao.getProductByBrand(searchText);
 			model.addAttribute("products", products);
 			model.addAttribute("categoryList", categoryDao.getAllCategories());
+			if(products.isEmpty()){
+				model.addAttribute("error", "No product found for the search criteria");
+			}
 			return "searchHome";
 		
 	}

@@ -23,7 +23,7 @@
 		<div class="row">
 			<div class="col-md-4 col-sm-6 footer-navigation">
 			    <h3><a href="${pageContext.request.contextPath}/"><span>YourStyle </span></a></h3>
-			    <p class="links"><a href="${pageContext.request.contextPath}/">Home</a><strong> · </strong><a href="${pageContext.request.contextPath}/terms">Terms and Conditions</a><strong> · </strong><a href="${pageContext.request.contextPath}/privacy">Privacy Policy</a><strong> · </strong><a href="#">About</a><strong> · </strong><a href="#">FAQ</a><strong> · </strong><a href="contactus">ContactUs</a></p>
+			    <p class="links"><a href="${pageContext.request.contextPath}/">Home</a><strong> · </strong><a href="${pageContext.request.contextPath}/terms">Terms and Conditions</a><strong> · </strong><a href="${pageContext.request.contextPath}/privacy">Privacy Policy</a><strong> · </strong><a href="${pageContext.request.contextPath}/about">About</a><strong> · </strong><a href="#">FAQ</a><strong> · </strong><a href="contactus">ContactUs</a></p>
 			    <p class="company-name">YourStyle.in © 2017 </p>
 			</div>
 			<div class="col-md-4 col-sm-6 footer-contacts">

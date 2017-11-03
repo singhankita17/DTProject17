@@ -55,7 +55,7 @@
 				</sec:authorize> --%>
 			</ul>
 			
-			<form class="navbar-form navbar-right" action="searchProduct" method="post">
+			<form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/searchProduct" method="post">
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search" name="searchString">
 					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>

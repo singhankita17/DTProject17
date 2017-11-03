@@ -17,6 +17,7 @@
 </head>
 <jsp:include page="header.jsp" /> 
 <body>
+
 <div id="wrap">
 <div id="main" class="container clear-top">
 <c:if test="${not empty error}">
@@ -35,12 +36,12 @@
 			  <img class="modal-content" id="img01">
 			  <div id="caption">${product.productName}</div>
 		</div>
-      	<p>${product.productName}</p>
  
       </div>
       <div class = "col-xs-5 product_content">
       <form action="${pageContext.request.contextPath}/addToCart/${product.id}">
       <h4>Product Id: <span>${product.id}</span></h4>
+      <h3>${product.productName}</h3>
       <div class="ratings">
                   <p>
                     <span class="fa fa-star-o"></span>
@@ -51,7 +52,7 @@
                   </p>
        </div>
        
-        <p><strong>${product.brandName}</strong></p>
+        <p>Brand : <strong>${product.brandName}</strong></p>
       <div  class="space-ten"></div>
       <p>${product.productDesc}</p>
         <c:if test="${not product.onSale}">
@@ -60,7 +61,7 @@
         <c:if test="${product.onSale eq true}">
         <h3 class="cost"><span class="fa fa-inr"></span>${product.salePrice} <small class="pre-cost"><span class="fa fa-inr"></span>${product.price} </small></h3>
         </c:if>
-     
+     <br>
        <div class="col-md-4">
       <input type="number" id="quantityToAdd" name="quantityToAdd" value="1" class="form-control" size="5" required>
       </div>
@@ -72,10 +73,33 @@
       </c:choose>
       </div>
       <br><br>
-      	<button id="addbtn" class="btn btn-primary"> <span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;Add To Cart </button>
+      	<button id="addbtn" class="btn btn-primary btn-block"> <span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;Add To Cart </button>
       </form>
+     <%--  <div id="gobtn">
+       	<a href="${pageContext.request.contextPath}/" class="btn btn-success"> Continue Shopping</a>
+        <a href="${pageContext.request.contextPath}/gotoCart" class="btn btn-primary"> Go to Cart &nbsp;<span class="fa fa-cart"></span></a>
+      </div> --%>
       </div>
       </div>
+      
+       <div class="col-xs-9">
+                    <ul class="menu-items">
+                        <li class="active">Description</li>
+                        <li>Specifications</li>
+                        <li>Reviews</li>
+                        <li>Q&A</li>
+                    </ul>
+                    <div style="width:100%;border-top:1px solid silver">
+                        <p style="padding:15px;">
+                            ${product.productDesc}
+                            
+                        </p>
+                        <small>
+                            <ul>
+                            </ul>  
+                        </small>
+                    </div>
+                </div>
    </div>
 </div>
 <script>
@@ -99,6 +123,27 @@ var span = document.getElementsByClassName("close")[0];
 span.onclick = function() { 
     modal.style.display = "none";
 }
+
+$(document).ready(function(){
+	
+    //-- Click on detail
+    $("ul.menu-items > li").on("click",function(){
+        $("ul.menu-items > li").removeClass("active");
+        $(this).addClass("active");
+    })
+
+    $(".attr,.attr2").on("click",function(){
+        var clase = $(this).attr("class");
+
+        $("." + clase).removeClass("active");
+        $(this).addClass("active");
+    })
+    
+  /*   $("#addbtn").on("click",function(){
+    	$("#addbtn").hide();
+    	$("#gobtn").show();
+    }) */
+});
 
 </script>
 
