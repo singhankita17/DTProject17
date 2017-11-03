@@ -165,6 +165,7 @@ public class ProductController {
 		if(products.isEmpty()){
 			model.addAttribute("error", "No product found for the search criteria");
 		}
+		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "searchHome";
 	}
 	
@@ -176,6 +177,7 @@ public class ProductController {
 		model.addAttribute("product", product);
 		//attributes.addFlashAttribute("product", product);
 		model.addAttribute("categoryList", categoryDao.getAllCategories());
+		model.addAttribute("addbtnStatus", true);
 		return "productDetailPage";
 	}
 	
@@ -202,6 +204,7 @@ public class ProductController {
 		if(products.isEmpty()){
 			model.addAttribute("error", "No product found for the search criteria");
 		}
+		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "searchHome";
 	}
 	
@@ -215,6 +218,7 @@ public class ProductController {
 		if(products.isEmpty()){
 			model.addAttribute("error", "No product found for the search criteria");
 		}
+		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "searchHome";
 	}
 	
@@ -227,6 +231,7 @@ public class ProductController {
 			if(products.isEmpty()){
 				model.addAttribute("error", "No product found for the search criteria");
 			}
+			model.addAttribute("categoryList", categoryDao.getAllCategories());
 			return "searchHome";
 		
 	}

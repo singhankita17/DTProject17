@@ -6,8 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="resources/css/Pretty-Footer.css">
-<link rel="stylesheet" href="resources/css/PageDisplay.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Pretty-Footer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/PageDisplay.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -39,46 +39,6 @@
 			</div>
 </c:if>
 <div class="container clear-top">
-<%-- <c:if test="${not empty products}"> --%>
-		<%-- <table class="table table-striped table-bordered" style="width:80%">
-			<thead>
-			<tr>
-				<th>S. No.</th>
-				<th>Product Id</th>
-				<th>Product Name</th>
-				<th>Product Description</th>
-				<th>Brand Name</th>
-				<th>Price</th>
-				<th>In Stock</th>
-				<th>Quantity</th>
-				<th>OnSale</th>
-				<th>Sale Price</th>
-				<th>Product Image</th>
-				
-			</tr>	
-			</thead>
-			<tbody>
-			   <c:forEach items="${products}" var="product" varStatus="rowCount">
-			   		<tr>
-			   			<td><c:out value="${rowCount.count}"></c:out></td>
-			   			<td><c:out value="${product.id}"></c:out></td>
-			   			<td><c:out value="${product.productName}"></c:out></td>
-			   			<td><c:out value="${product.productDesc}"></c:out></td>
-			   			<td><c:out value="${product.brandName}"></c:out></td>
-			   			<td><c:out value="${product.price}"></c:out></td>
-			   			<td><c:out value="${product.inStock}"></c:out></td>
-			   			<td><c:out value="${product.quantityAvailable}"></c:out></td>
-			   			<td><c:out value="${product.onSale}"></c:out></td>
-			   			<td><c:out value="${product.salePrice}"></c:out></td>
-			   			<!-- Added in Multipart changes for image display -->
-			   			<td>
-			   			<a href="productDetail/${product.id}">
-			   			<img src="<c:url value="resources/images/${product.id}.jpg" />" class = "img-thumbnail" width="204px" height="106px"/>
-			   			</a></td>
-			   		</tr>
-			   </c:forEach>
-			</tbody>
-		</table> --%>
 		
 	<div class="row">        
 	<c:forEach items="${products}" var="product" varStatus="rowCount">     

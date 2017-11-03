@@ -23,25 +23,26 @@ public class User {
 		@GeneratedValue
 		private int Id;
 		
-		@NotNull
+		@NotNull(message="The first name cannot be left blank")
 		@Column(name = "first_name")
 		private String firstName;
 		
-		@NotNull
+		@NotNull(message="The last name cannot be left blank")
 		@Column(name = "last_name")
 		private String lastName;
 		
 		@Email
-		@NotNull
+		@NotNull(message="The email cannot be left blank")
 		private String email;
 		
 		
 		
-		@NotNull @Size(min=6,max=15)
+		@NotNull(message="The name cannot be left blank")
+		@Size(min=6,max=15,message="The password length must be between 6 and 15 characters")
 		private String password;
 		
 		
-		@NotNull @Pattern(regexp="\\d{10}")
+		@NotNull @Pattern(regexp="\\d{10}",message="The mobile number must be a 10 digit number")
 		private String phone;
 				
 		

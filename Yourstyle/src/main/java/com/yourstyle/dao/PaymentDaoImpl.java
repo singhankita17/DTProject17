@@ -49,4 +49,13 @@ public class PaymentDaoImpl implements PaymentDao {
 		return paymentList;
 	}
 
+	@Transactional
+	@Override
+	public List<Payment> getUserCardPaymentInfo(int userId) {
+		log.info("PaymentDaoImpl : get User Card Payment detail by User Id");
+		List<Payment> paymentList=  sessionFactory.getCurrentSession().createQuery("from Payment where userId = :userId and paymentMethod IN ('creditcard','debitcard')",Payment.class)
+				.setParameter("userId", userId).list();
+		return paymentList;
+	}
+
 }

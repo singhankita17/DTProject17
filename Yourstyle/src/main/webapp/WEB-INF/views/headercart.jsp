@@ -29,6 +29,15 @@
 				<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img alt="YourStyle"  style="max-width:70px; margin-top: -7px;" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
 			</div>
 			<div class="collapse navbar-collapse" id="ysNavbar">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+			<sec:authorize access="isAuthenticated()">
+					<li><a href="#">Welcome : <sec:authentication property="name"/></a></li>
+					<li><a href="<c:url value="/logout" />">Logout</a></li>
+				</sec:authorize>
+			</ul>
 			</div>
 		</div>
 	</nav>

@@ -18,25 +18,46 @@
 <jsp:include page="headercart.jsp" /> 
 <body>
 <div id="wrap">
-<div id="main" class="container clear-top">
-
+<div class="container clear-top">
+<c:if test="${not empty addressList}">
 	<form  action="selectShippingAddress" method="post">
 			<h3>Select a delivery Address:</h3>
 			<hr>
 			<div class="row">
-			<c:forEach var="address" items="${addressList}">
+			<c:forEach var="address" items="${addressList}" varStatus="loopCounter">
 			<div class="col-md-4 col-xs-4">
-										
-						<div class="radio">
-						<input type="radio" name="shipaddress" value="${address.id}"> <p> ${address.name}<br/>
-			      		${address.address1}
-			      		<br/>${address.address2}
-			      		<br/>${address.landmark}
-			      		 <p>${address.city} &nbsp; ${address.state}
-			      		 <br/> Pincode : ${address.pincode}	
-			      		 </p>
-			      		 </div>	
-			    
+						<c:choose>	
+						<c:when test="${loopCounter.index==0}">
+								<div class="radio">
+								<input type="radio" name="shipaddress" value="${address.id}" checked> <p> ${address.name}<br/>
+					      		${address.address1}
+					      		<br/>${address.address2}
+					      		<br/>${address.landmark}
+					      		 <p>${address.city} &nbsp; ${address.state}
+					      		 <br/> Pincode : ${address.pincode}	
+					      		 <br/> Mobile: <c:choose>
+					      		<c:when test="${address.phone eq 0}">${sessionScope.user.phone}</c:when>
+					      		<c:when test="${not empty address.phone}">${address.phone}</c:when>
+					      		</c:choose>
+					      		 </p>
+					      		 </div>	
+					      </c:when>
+					      <c:otherwise>
+					      	<div class="radio">
+								<input type="radio" name="shipaddress" value="${address.id}"> <p> ${address.name}<br/>
+					      		${address.address1}
+					      		<br/>${address.address2}
+					      		<br/>${address.landmark}
+					      		 <p>${address.city} &nbsp; ${address.state}
+					      		 <br/> Pincode : ${address.pincode}	
+					      		 <br/> Mobile: <c:choose>
+					      		<c:when test="${address.phone eq 0}">${sessionScope.user.phone}</c:when>
+					      		<c:when test="${not empty address.phone}">${address.phone}</c:when>
+					      		</c:choose>
+					      		 </p>
+					      		 </div>	
+					      </c:otherwise>
+			    		</c:choose>
       		 </div>	
       		 </c:forEach>
 			</div>
@@ -45,8 +66,8 @@
 			 <button type="submit" class="btn btn-warning">Deliver to Selected Address</button>
 			 </div>
 	</form>
+	</c:if>
 </div>
-
 <div class="container">
 <h3>Add a new Address :</h3>
 <div class="row jumbotron">

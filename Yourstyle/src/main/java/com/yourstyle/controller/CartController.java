@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,7 +86,7 @@ public class CartController {
 			cartItem.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
 			cartItem.setUpdatedBy("SYSTEM");
 			
-			attributes.addFlashAttribute("message", "This product was already added to cart");
+			model.addAttribute("message", "This product was already added to cart");
 			
 		}else{
 			cartItem = new Cart();
@@ -105,27 +106,29 @@ public class CartController {
 			cartItem.setCreatedBy("SYSTEM");
 			cartItem.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
 			
-			attributes.addFlashAttribute("message", "Product successfully added to cart");
+			model.addAttribute("message", "Product successfully added to cart");
 			
 		}
-		
+		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		cartDao.saveOrUpdate(cartItem);
+		model.addAttribute("addbtnStatus", false);
 		}
 		else
 		{
-			attributes.addFlashAttribute("error", "Product not in Stock");
+			model.addAttribute("error", "Product not in Stock");
 			
 		}
 		log.info("addProductToCart : Product added to cart --->"+id);
 		//model.addAttribute("cartItem", product);
 		//attributes.addFlashAttribute("product", product);
 		//return "redirect:/";
-		attributes.addFlashAttribute("product", product);
-		return "redirect:/productDetailPage";
+		model.addAttribute("product", product);
+		return "productDetailPage";
 	}
 	
-	@RequestMapping(value="goToCart",method = RequestMethod.GET)
+	@RequestMapping(value="/goToCart",method = RequestMethod.GET)
 	public String viewCart(HttpSession session,Model model){
+		
 		if(session != null){
 		User user = (User) session.getAttribute("user");
 		
@@ -135,6 +138,7 @@ public class CartController {
 		
 		model.addAttribute("cartList", cartList);
 		
+				
 		if(cartDao.getCartSize(user.getId())!=0){
 			model.addAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		}else{
@@ -144,8 +148,8 @@ public class CartController {
 			model.addAttribute("error", "User session invalid");
 		}
 			
-		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		
+		model.addAttribute("categoryList", categoryDao.getAllCategories());
 		return "CartPage";
 	}
 	
@@ -234,8 +238,11 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="saveShippingAddress",method = RequestMethod.POST)
-	public String saveShippingPage(@ModelAttribute("address") Address address,BindingResult result, HttpSession session,Model m,RedirectAttributes attributes){
-		
+	public String saveShippingPage(@Valid @ModelAttribute("address") Address address,BindingResult result, HttpSession session,Model m,RedirectAttributes attributes){
+		if(result.hasErrors()){
+			System.out.println(result.getAllErrors().toString());
+			return "shipping";
+		}else{
 		User user = (User) session.getAttribute("user");
 		address.setCreatedBy("SYSTEM");
 		address.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
@@ -247,6 +254,7 @@ public class CartController {
 		attributes.addFlashAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		
 		return "redirect:/showpaymentPage";
+		}
 	}
 	
 	@RequestMapping(value="orderSummary",method = RequestMethod.GET)
@@ -258,7 +266,8 @@ public class CartController {
 		model.addAttribute("address", address);
 		model.addAttribute("payment", payment);
 		model.addAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
-		
+		model.addAttribute("cartList", cartDao.getCartByUserId(user.getId()));
+		model.addAttribute("productList",productDao.getAllProducts());
 		return "orderSummary";
 	}
 	
@@ -327,13 +336,18 @@ public class CartController {
 		User user = (User) session.getAttribute("user");
 		Address address = (Address) session.getAttribute("address");
 		model.addAttribute("address", address);
+		//model.addAttribute("paymentList", paymentDao.getUserCardPaymentInfo(user.getId()));
 		model.addAttribute("cartTotalAmount", cartDao.getCartTotal(user.getId()));
 		
 		return "paymentPage";
 	}
 	
 	@RequestMapping(value="selectPaymentMethod")
-	public String selectPaymentMethod(@ModelAttribute("payment") Payment payment,BindingResult result,HttpSession session,Model m,RedirectAttributes attributes){
+	public String selectPaymentMethod(@Valid @ModelAttribute("payment") Payment payment,BindingResult result,HttpSession session,Model m,RedirectAttributes attributes){
+		if(result.hasErrors()){
+			System.out.println(result.getAllErrors().toString());
+			return "paymentPage";
+		}else{
 		User user = (User) session.getAttribute("user");
 		String paymentChoice = "";
 		if(payment.getPaymentMethod().equals("creditcard")){
@@ -357,6 +371,7 @@ public class CartController {
 		attributes.addFlashAttribute("cartTotalAmount", totalAmount);
 		
 		return "redirect:/orderSummary";
+		}
 	}
 	
 	@RequestMapping(value="showinvoice")

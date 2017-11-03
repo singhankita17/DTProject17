@@ -12,4 +12,6 @@ public interface PaymentDao {
 	
 	public List<Payment> getUserPaymentInfo(int userId);
 	
+	public List<Payment> getUserCardPaymentInfo(int userId);
+	
 }

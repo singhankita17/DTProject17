@@ -21,15 +21,15 @@
 	<div class="container">
 	      <form:form commandName="category" method="post" action="saveCategory">
 				<p><font color="red">${errorMessage}</font></p>				
-				<h5>
+				<h4>
 				<strong>
 			     <c:choose>
 			     	<c:when test="${category.id==0}">  Add New Item </c:when>
 			     	<c:when test="${!empty category.id}">Update Category for Id: <c:out value="${category.id}"/></c:when>
 			     </c:choose>
 			     </strong>
-			     </h5>
-			    		     
+			     </h4>
+			    	<hr>	     
 				<div class="form-group row">
 				 <div class="col-xs-4">
 				   <c:if test="${category.id != 0}">

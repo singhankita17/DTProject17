@@ -17,7 +17,7 @@ public class Payment {
 	@GeneratedValue
 	private int id;
 	
-	@NotNull
+	@NotNull(message="The payment method cannot be left blank")
 	private String paymentMethod;
 	
 	private long cardNumber;

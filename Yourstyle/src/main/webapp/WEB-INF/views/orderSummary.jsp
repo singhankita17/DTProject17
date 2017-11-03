@@ -29,7 +29,7 @@
       		<br/>${address.landmark}
       		 <br>${address.city} &nbsp; ${address.state}
       		 <br/> Pincode : ${address.pincode}
-      		<br/> Phone: <c:choose>
+      		<br/> Mobile: <c:choose>
       		<c:when test="${address.phone eq 0}">${sessionScope.user.phone}</c:when>
       		<c:when test="${not empty address.phone}">${address.phone}</c:when>
       		</c:choose>
@@ -61,10 +61,10 @@
 	 <thead>
 			<tr>
 			<th>Product</th>
-			<th>Expected Delivery</th>
-			<th>Quantity</th>
-			<th class="text-center">Price</th>
-			<th class="text-center">Total</th>
+			<th></th>
+			<th></th>
+			<th class="text-center">Expected Delivery</th>
+			<th class="text-center">Quantity</th>
 			
 			</tr>	
 		</thead>
@@ -85,6 +85,8 @@
                         </div></td>
                  </c:if>
               </c:forEach>
+               <td class="col-sm-1 col-md-1 text-center"></td>
+			 <td class="col-sm-1 col-md-1 text-center"></td>
              <td class="col-sm-1 col-md-1">
              With in 7 working days
  			 </td>
@@ -93,8 +95,7 @@
 			${cart.quantityAdded}
 			
 			</td>
-			 <td class="col-sm-1 col-md-1 text-center"></td>
-			 <td class="col-sm-1 col-md-1 text-center"></td>
+			
 			
 				
 		</tr>
@@ -105,7 +106,7 @@
 			<td>  </td>
 			<td>  </td>
 			<td></td>
-			<td class="text-right"><h5><a class="btn btn-sm btn-warning"  href="${pageContext.request.contextPath}/goToCart"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Edit Order</a></h5></td>
+			<td class="text-right"><h5><a class="btn btn-sm btn-warning"  href="${pageContext.request.contextPath}/goToCart">Edit Order</a></h5></td>
 		</tr>
 		
 		

@@ -28,6 +28,7 @@ $( document ).ready(function() {
 <body>
 <div id="wrap">
 <div id="main" class="container clear-top">
+
   <h3>Select a Payment Method</h3>
   <hr>
   <form:form commandName="payment" action="selectPaymentMethod" method="post">
@@ -58,7 +59,7 @@ $( document ).ready(function() {
 						<div class="form-group">
 						  <div class="col-xs-10">
 	                        <label for="cardType">CARD TYPE</label>
-						<form:select class="form-control" name="cardType" path="cardType">
+						<form:select class="form-control" name="cardType" path="cardType" >
 							<option value="0">-------Choose a Card Type-------</option>
 						 	<option value="1">All Visa or MasterCard Card</option>
 						 	<option value="2">All Rupay Debit Card</option>
@@ -87,7 +88,7 @@ $( document ).ready(function() {
 			      			 <div class="col-xs-10">
 					            <label class="control-label"  for="username">CARD HOLDER'S NAME</label>
 					            <div class="controls">
-					                 <form:input type="text" class="form-control" path="cardHoldersName" placeholder="" />
+					                 <form:input type="text" class="form-control" path="cardHoldersName" placeholder=""  />
 					            </div>
 					           </div>
 					          </div>
@@ -101,10 +102,10 @@ $( document ).ready(function() {
                                    EXPIRY DATE</label>
                                     <br>
                                 <div class="col-xs-6 col-lg-6 pl-ziro">
-                                    <form:input type="text" class="form-control" path="expiryMonth" placeholder="MM" />
+                                    <form:input type="text" class="form-control" path="expiryMonth" placeholder="MM" maxlength="2" />
                                 </div>
                                 <div class="col-xs-6 col-lg-6 pl-ziro">
-                                    <form:input type="text" class="form-control" path="expiryYear" placeholder="YY" /></div>
+                                    <form:input type="text" class="form-control" path="expiryYear" placeholder="YY" maxlength="2"/></div>
                             	</div>
                             	</div>
                         </div>

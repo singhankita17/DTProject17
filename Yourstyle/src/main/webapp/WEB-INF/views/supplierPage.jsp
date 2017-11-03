@@ -21,15 +21,15 @@
 	<div class="container">
 	      <form:form commandName="supplier" method="post" action="saveSupplier">
 				<p><font color="red">${errorMessage}</font></p>				
-				<h5>
+				<h4>
 				<strong>
 			     <c:choose>
 			     	<c:when test="${supplier.id==0}">  Add New Supplier </c:when>
 			     	<c:when test="${!empty supplier.id}">Update Supplier for Id: <c:out value="${supplier.id}"/></c:when>
 			     </c:choose>
 			     </strong>
-			     </h5>
-			    		     
+			     </h4>
+			    <hr>		     
 				<div class="form-group row">
 				 <div class="col-xs-4">
 				   <c:if test="${supplier.id != 0}">

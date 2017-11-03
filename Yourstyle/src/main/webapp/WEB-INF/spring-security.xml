@@ -31,6 +31,7 @@
 				<intercept-url pattern="/goToCart" access="hasRole('ROLE_USER')"/>
 				<intercept-url pattern="/addToCart/**" access="hasRole('ROLE_USER')"/>
 				<intercept-url pattern="/accessDenied*" access="isAuthenticated()"/>
+				<intercept-url pattern="/contactus*" access="hasRole('ROLE_USER')"/>
 				<form-login login-page="/login" authentication-failure-url="/loginfailed" default-target-url="/home" 
 				login-processing-url="/perform_login"
 				username-parameter="email" 

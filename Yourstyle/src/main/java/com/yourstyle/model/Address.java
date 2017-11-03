@@ -23,35 +23,35 @@ public class Address {
 		@GeneratedValue
 		private int id;
 		
-		@NotNull
+		@NotNull(message="The name cannot be left blank")
 		private String name;
 		
-		@NotNull
+		@NotNull(message="The address1 cannot be left blank")
 		private String address1;
 		
-		@NotNull
+		@NotNull(message="The address2 cannot be left blank")
 		private String address2;
 		
 		private String landmark;
 		
-		@NotNull
+		@NotNull(message="The city cannot be left blank")
 		private String city;
 		
-		@NotNull
+		@NotNull(message="The state cannot be left blank")
 		private String state;
 		
-		@NotNull @Pattern(regexp="\\d{6}")
+		@NotNull @Pattern(regexp="\\d{6}",message="The pincode must be a 6 digit number")
 		private String pincode;
 		
 		@Email
 		private String email;
 		
-		@Pattern(regexp="\\d{10}")
+		@Pattern(regexp="\\d{10}",message="The mobile number must be a 10 digit number")
 		private String phone;
 		
 		private int personId;
 		
-		@NotNull
+		@NotNull(message="The address type cannot be left blank")
 		private String addressType;
 		
 		private Timestamp createdTimestamp;

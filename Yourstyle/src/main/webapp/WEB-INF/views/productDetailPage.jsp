@@ -21,10 +21,10 @@
 <div id="wrap">
 <div id="main" class="container clear-top">
 <c:if test="${not empty error}">
-	    	<h4> <font size="4px" color="red">${error} </font></h4>
+	    	<h4> <font size="3px" color="red">${error} </font></h4>
 	</c:if>
 	<c:if test="${not empty message}">
-	    	<h4> <font size="2px" color="blue">${message} </font></h4>
+	    	<h4> <font size="3px" color="blue">${message} </font></h4>
 	</c:if>
 	<br>
 	<br>
@@ -73,8 +73,13 @@
       </c:choose>
       </div>
       <br><br>
+   	  <c:if test="${addbtnStatus eq true}">
       	<button id="addbtn" class="btn btn-primary btn-block"> <span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;Add To Cart </button>
+      </c:if>
       </form>
+      <c:if test="${not addbtnStatus}">
+       <a href="${pageContext.request.contextPath}/goToCart" class="btn btn-primary btn-block"> Go to Cart &nbsp;<span class="fa fa-cart"></span></a>
+      </c:if>
      <%--  <div id="gobtn">
        	<a href="${pageContext.request.contextPath}/" class="btn btn-success"> Continue Shopping</a>
         <a href="${pageContext.request.contextPath}/gotoCart" class="btn btn-primary"> Go to Cart &nbsp;<span class="fa fa-cart"></span></a>
